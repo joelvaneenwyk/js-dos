@@ -13,4 +13,4 @@ insert_final_newline = true
 indent_size = 4
 
 [*.{md,markdown}]
-indent_size = 1
+indent_size = 2

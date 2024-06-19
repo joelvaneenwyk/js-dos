@@ -25,7 +25,8 @@
   "homepage": "https://js-dos.com",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && yarn build:emulators",
+    "build:emulators": "mkdir -p dist/emulators && cp -rv node_modules/emulators/dist/* dist/emulators",
     "preview": "vite preview",
     "lint": "eslint ."
   },
