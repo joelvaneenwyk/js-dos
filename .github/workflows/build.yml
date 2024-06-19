@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-    
+
     steps:
     - uses: actions/checkout@v4
       with:
@@ -26,8 +26,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
         cache: 'npm'
-    - run: npm install -g yarn
-    - run: yarn
+    - run: npm install -g corepack
+    - run: corepack enable
+    - run: yarn install
     - run: yarn run eslint . --ext ts,tsx --max-warnings 0
     - run: mkdir -p public/emulators && cp -rv node_modules/emulators/dist/* public/emulators
     - run: NODE_ENV=production yarn run vite build --base /latest --sourcemap true --minify terser
