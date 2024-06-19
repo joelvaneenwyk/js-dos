@@ -1,7 +1,7 @@
 import { Dispatch, createAction, createSlice } from "@reduxjs/toolkit";
 import { lStorage } from "../host/lstorage";
-import { Account } from "./auth";
 import { DosAction } from "../store";
+import { Account } from "./auth";
 
 export const ThemeValues = <const>["light", "dark", "cupcake", "bumblebee", "emerald", "corporate",
     "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi",
@@ -14,21 +14,21 @@ export type Frame = "none" | "account" | "settings" |
     "stats" | "fat-drives" | "quick-save" | "image-rendering";
 
 const initialState: {
-    modal: "none" | "login",
-    frame: Frame,
-    frameXs: boolean,
-    window: "none" | "error" | "loading" | "prerun" | "run" | "select",
-    theme: Theme,
-    editor: boolean,
-    wideScreen: boolean,
-    fullScreen: boolean,
-    toast: string | null,
-    toastIntent: "none" | "error" | "success" | "panic",
-    toastTimeoutId: number,
-    background: string | null,
-    readOnlyWarning: boolean,
-    updateWsWarning: boolean,
-    cloudSaves: boolean,
+    modal: "none" | "login";
+    frame: Frame;
+    frameXs: boolean;
+    window: "none" | "error" | "loading" | "prerun" | "run" | "select";
+    theme: Theme;
+    editor: boolean;
+    wideScreen: boolean;
+    fullScreen: boolean;
+    toast: string | null;
+    toastIntent: "none" | "error" | "success" | "panic";
+    toastTimeoutId: NodeJS.Timeout | number;
+    background: string | null;
+    readOnlyWarning: boolean;
+    updateWsWarning: boolean;
+    cloudSaves: boolean;
 } = {
     modal: "none",
     frame: "none",

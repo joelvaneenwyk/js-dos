@@ -1,10 +1,10 @@
 import { AnyAction } from "@reduxjs/toolkit";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { LockBadge } from "../components/lock";
 import { State, Store } from "../store";
 import { Frame, uiSlice } from "../store/ui";
 import { DisketteIcon } from "./diskette-icon";
-import { useEffect, useRef, useState } from "preact/hooks";
 
 export function ImageRenderingButton(props: {
     class?: string,
@@ -160,7 +160,7 @@ export function HddLed(props: {}) {
         }
     }, [ref, state]);
     const [on, setOn] = useState<boolean>(false);
-    const [off, setOff] = useState<{ recv: number, timeoutId: number | null }>({
+    const [off, setOff] = useState<{ recv: number, timeoutId: NodeJS.Timeout | number | null }>({
         recv: 0,
         timeoutId: null,
     });
