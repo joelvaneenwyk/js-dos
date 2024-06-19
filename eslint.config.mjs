@@ -1,16 +1,15 @@
 // @ts-check
 
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from "globals";
+import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+const baseConfig = tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
         ignores: ["dist/**/*"],
-    },
-    {
         languageOptions: {
             globals: {
                 ...globals.browser,
@@ -21,19 +20,12 @@ export default tseslint.config(
         },
 
         rules: {
-            "object-curly-spacing": ["error", "always"],
             "require-jsdoc": "off",
-            quotes: ["error", "double"],
-
-            indent: ["error", 4, {
-                SwitchCase: 1,
-
-                FunctionDeclaration: {
-                    parameters: "first",
-                },
-            }],
-
-            "max-len": ["error", 120],
         },
     }
 );
+
+export default [
+    ...baseConfig,
+    eslintPluginPrettierRecommended,
+];
