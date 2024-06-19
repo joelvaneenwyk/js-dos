@@ -24,10 +24,10 @@
   },
   "include": ["src"],
   "exclude": [
-    "src/sockdrive/js/src/test",
-    "src/sockdrive/js/src/sockdrive-fat.ts",
-    "src/sockdrive/js/src/sockdrive-native.ts",
-    "src/sockdrive/js/src/fatfs"
+    "src/sockdrive/src/test",
+    "src/sockdrive/src/sockdrive-fat.ts",
+    "src/sockdrive/src/sockdrive-native.ts",
+    "src/sockdrive/src/fatfs"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

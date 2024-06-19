@@ -1,22 +1,28 @@
-import { Handle, Stats } from "../sockdrive/js/src/sockdrive/types";
-import { Drive } from "../sockdrive/js/src/sockdrive/drive";
+import { Drive } from "sockdrive-asyncify/src/sockdrive/drive";
+import { Handle, Stats } from "sockdrive-asyncify/src/sockdrive/types";
 
 interface Template {
-    name: string,
-    size: number,
-    heads: number,
-    cylinders: number,
-    sectors: number,
-    sectorSize: number,
+    name: string;
+    size: number;
+    heads: number;
+    cylinders: number;
+    sectors: number;
+    sectorSize: number;
 }
 
 export interface ReadResponse {
-    buffer?: Uint8Array,
-    code: number,
+    buffer?: Uint8Array;
+    code: number;
 }
 
 export function createSockdrive(
-    onOpen: (drive: string, read: boolean, write: boolean, imageSize: number, preloadQueue: number[]) => void,
+    onOpen: (
+        drive: string,
+        read: boolean,
+        write: boolean,
+        imageSize: number,
+        preloadQueue: number[],
+    ) => void,
     onError: (e: Error) => void,
     onPreloadProgress: (drive: string, restBytes: number) => void,
 ) {
@@ -34,12 +40,22 @@ export function createSockdrive(
     };
     const sockdrive = {
         stats,
-        open: async (url: string, owner: string, name: string, token: string): Promise<{
-            handle: Handle,
-            aheadRange: number,
+        open: async (
+            url: string,
+            owner: string,
+            name: string,
+            token: string,
+        ): Promise<{
+            handle: Handle;
+            aheadRange: number;
         }> => {
-            const response = await fetch(url.replace("wss://", "https://")
-                .replace("ws://", "http://") + "/template/" + owner + "/" + name);
+            const response = await fetch(
+                url.replace("wss://", "https://").replace("ws://", "http://") +
+                    "/template/" +
+                    owner +
+                    "/" +
+                    name,
+            );
             const template = await response.json();
             if (template.error) {
                 throw new Error(template.error);
@@ -56,32 +72,48 @@ export function createSockdrive(
 
             const sectorSize = templates[seq].sectorSize;
             const module = { HEAPU8: new Uint8Array(0) };
-            mapping[seq] = new Drive(url, owner, name, token, stats, module, true, true);
-            return new Promise<{ handle: Handle, aheadRange: number }>((resolve, reject) => {
-                const drive = owner + "/" + name;
-                mapping[seq].onOpen((read, write, imageSize, preloadQueue, aheadRange) => {
-                    memory[seq] = new Uint8Array(sectorSize /* write */ + sectorSize * aheadRange);
-                    module.HEAPU8 = memory[seq];
-                    onOpen(drive, read, write, imageSize, preloadQueue);
-                    resolve({
-                        handle: seq,
-                        aheadRange,
+            mapping[seq] = new Drive(
+                url,
+                owner,
+                name,
+                token,
+                stats,
+                module,
+                true,
+                true,
+            );
+            return new Promise<{ handle: Handle; aheadRange: number }>(
+                (resolve, reject) => {
+                    const drive = owner + "/" + name;
+                    mapping[seq].onOpen(
+                        (read: boolean, write: boolean, imageSize: number, preloadQueue: number[], aheadRange: number) => {
+                            memory[seq] = new Uint8Array(
+                                sectorSize /* write */ +
+                                    sectorSize * aheadRange,
+                            );
+                            module.HEAPU8 = memory[seq];
+                            onOpen(drive, read, write, imageSize, preloadQueue);
+                            resolve({
+                                handle: seq,
+                                aheadRange,
+                            });
+                        },
+                    );
+                    mapping[seq].onPreloadProgress((restBytes: number) => {
+                        onPreloadProgress(drive, restBytes);
                     });
-                });
-                mapping[seq].onPreloadProgress((restBytes) => {
-                    onPreloadProgress(drive, restBytes);
-                });
-                mapping[seq].onError((e) => {
-                    onError(e);
-                    reject(e);
-                });
-            });
+                    mapping[seq].onError((e: Error) => {
+                        onError(e);
+                        reject(e);
+                    });
+                },
+            );
         },
         read: async (handle: Handle, sector: number): Promise<ReadResponse> => {
             if (mapping[handle]) {
                 const ptr = templates[seq].sectorSize;
                 let code = mapping[handle].read(sector, ptr, true) as number;
-                if (code = 255) {
+                if ((code = 255)) {
                     code = await mapping[handle].read(sector, ptr, false);
                 }
                 return {
@@ -95,8 +127,14 @@ export function createSockdrive(
         },
         write: (handle: Handle, sector: number, buffer: Uint8Array): number => {
             if (buffer.byteLength != templates[handle].sectorSize) {
-                onError(new Error("sockdrive write buffer size " + buffer.byteLength +
-                    " != sector size " + templates[handle].sectorSize));
+                onError(
+                    new Error(
+                        "sockdrive write buffer size " +
+                            buffer.byteLength +
+                            " != sector size " +
+                            templates[handle].sectorSize,
+                    ),
+                );
                 return 1;
             }
             if (mapping[handle]) {

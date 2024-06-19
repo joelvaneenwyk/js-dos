@@ -3,8 +3,9 @@
   "version": "8.1.7",
   "description": "Full-featured DOS player with multiple emulator backends",
   "type": "module",
+  "private": true,
   "workspaces": [
-    "src/sockdrive/js"
+    "src/sockdrive"
   ],
   "keywords": [
     "js-dos",
@@ -69,6 +70,7 @@
     "react-dom": "npm:@preact/compat@^17.1.2",
     "react-redux": "^8",
     "semver": "^7.6",
+    "sockdrive-asyncify": "workspace:*",
     "tailwindcss": "^3.4",
     "terser": "^5",
     "typescript": "^5.4",
