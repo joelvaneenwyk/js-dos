@@ -782,7 +782,7 @@ __metadata:
     "@vscode/test-electron": "npm:^2.4"
     "@vscode/vsce": "npm:^2.28"
     autoprefixer: "npm:^10.4.17"
-    daisyui: "npm:^3.9.3"
+    daisyui: "npm:^4.12.7"
     emulators: "npm:8.1.3"
     eslint: "npm:*"
     eslint-config-prettier: "npm:^9.1.0"
@@ -1222,6 +1222,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/events@npm:^3":
+  version: 3.0.3
+  resolution: "@types/events@npm:3.0.3"
+  checksum: 10c0/3a56f8c51eb4ebc0d05dcadca0c6636c816acc10216ce36c976fad11e54a01f4bb979a07211355686015884753b37f17d74bfdc7aaf4ebb027c1e8a501c7b21d
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:^8":
   version: 8.1.0
   resolution: "@types/glob@npm:8.1.0"
@@ -1294,6 +1301,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/22640f0eb2a955872e4529a93be1b719f67b527b80fdab51419756d20e21b5ce0f4ccbee9a3e2ff20e5def647f77baf77b4b0434ff8896791c102165ec0c3e48
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.14.6":
+  version: 20.14.8
+  resolution: "@types/node@npm:20.14.8"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10c0/06d4643fa3b179b41fe19f9c75c240278ca1f7a313b3b837bc36ea119499c7ad77f06bbe72694ac04aa91ec77fe747baa09b889f4c435450c1724a26bd55f160
   languageName: node
   linkType: hard
 
@@ -2311,7 +2327,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^5.1.1":
+"chai@npm:^5":
   version: 5.1.1
   resolution: "chai@npm:5.1.1"
   dependencies:
@@ -2566,13 +2582,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colord@npm:^2.9":
-  version: 2.9.3
-  resolution: "colord@npm:2.9.3"
-  checksum: 10c0/9699e956894d8996b28c686afe8988720785f476f59335c80ce852ded76ab3ebe252703aec53d9bef54f6219aea6b960fb3d9a8300058a1d0c0d4026460cd110
-  languageName: node
-  linkType: hard
-
 "colorette@npm:^2.0.14, colorette@npm:^2.0.20":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
@@ -2702,16 +2711,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^3.9.3":
-  version: 3.9.4
-  resolution: "daisyui@npm:3.9.4"
+"culori@npm:^3":
+  version: 3.3.0
+  resolution: "culori@npm:3.3.0"
+  checksum: 10c0/acd330a8f940dc22f36650ba722c9302a4745fee3c8fb40a27ac27228767e2cba4221c2dc414fce652b82cb264d28f65d8b76d505df402ecf94dbb9e440319e1
+  languageName: node
+  linkType: hard
+
+"daisyui@npm:^4.12.7":
+  version: 4.12.7
+  resolution: "daisyui@npm:4.12.7"
   dependencies:
-    colord: "npm:^2.9"
     css-selector-tokenizer: "npm:^0.8"
-    postcss: "npm:^8"
+    culori: "npm:^3"
+    picocolors: "npm:^1"
     postcss-js: "npm:^4"
-    tailwindcss: "npm:^3.1"
-  checksum: 10c0/243e1218b453ed0dc6772fd5f8291b86c121d90f4f789d0444605e26aa3aa66f02a6fe8ad5f8315b1dd962b36efcacb21a961c8c2d2a50ee1fb5907fff2d5dff
+  checksum: 10c0/d9b5c8d5d11832762f7f888da50027d13198b4cc409ab622b9b71728233f04395313060bf94c5eeecf7093037e088802383828bc29991b9e3d180c42cc0562f4
   languageName: node
   linkType: hard
 
@@ -3329,7 +3344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.0.0, events@npm:^3.2.0":
+"events@npm:^3, events@npm:^3.0.0, events@npm:^3.2.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: 10c0/d6b6f2adbccbcda74ddbab52ed07db727ef52e31a61ed26db9feb7dc62af7fc8e060defa65e5f8af9449b86b52cc1a1f6a79f2eafcf4e62add2b7a1fa4a432f6
@@ -5451,7 +5466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1":
+"picocolors@npm:^1, picocolors@npm:^1.0.0, picocolors@npm:^1.0.1":
   version: 1.0.1
   resolution: "picocolors@npm:1.0.1"
   checksum: 10c0/c63cdad2bf812ef0d66c8db29583802355d4ca67b9285d846f390cc15c2f6ccb94e8cb7eb6a6e97fc5990a6d3ad4ae42d86c84d3146e667c739a4234ed50d400
@@ -6315,14 +6330,18 @@ __metadata:
   resolution: "sockdrive-asyncify@workspace:src/sockdrive"
   dependencies:
     "@types/chai": "npm:^4.3.16"
+    "@types/events": "npm:^3"
     "@types/mocha": "npm:^10"
+    "@types/node": "npm:^20.14.6"
     "@typescript-eslint/eslint-plugin": "npm:^7"
     "@typescript-eslint/parser": "npm:^7"
     buffer: "npm:^6"
-    chai: "npm:^5.1.1"
+    chai: "npm:^5"
     eslint: "npm:<9"
     eslint-webpack-plugin: "npm:^4"
+    events: "npm:^3"
     fifolock: "npm:^1"
+    mocha: "npm:^10"
     process: "npm:^0.11"
     stream-browserify: "npm:^3"
     struct-fu: "npm:^1.2"
@@ -6611,7 +6630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.1, tailwindcss@npm:^3.4":
+"tailwindcss@npm:^3.4":
   version: 3.4.4
   resolution: "tailwindcss@npm:3.4.4"
   dependencies:
