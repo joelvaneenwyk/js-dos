@@ -10,12 +10,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x]
+        os: [ubuntu]
+        node-version: [18.x, 20.x, 22.x]
 
+    runs-on: '${{ matrix.os }}-latest'
     steps:
     - uses: actions/checkout@v4
       with:
