@@ -44,11 +44,11 @@ function initBind() {
 }
 
 export interface PointerState {
-    x: number,
-    y: number,
-    mX: number,
-    mY: number,
-    button?: number,
+    x: number;
+    y: number;
+    mX: number;
+    mY: number;
+    button?: number;
 }
 
 export function getPointerState(e: Event, el: HTMLElement): PointerState {
@@ -82,4 +82,3 @@ export function getPointerState(e: Event, el: HTMLElement): PointerState {
 }
 
 export const pointer = initBind();
-

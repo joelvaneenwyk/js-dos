@@ -18,17 +18,23 @@ export function Frame(props: {}) {
         return null;
     }
 
-
-    return <div class={"frame " + (frameXs ? " frame-xs " : "") +
-        (frameXs || wideScreen ? "" : " frame-md")}>
-        { frame === "account" && <AccountFrame /> }
-        { frame === "settings" && <SettingsFrame /> }
-        { frame === "editor-conf" && <EditorConf /> }
-        { frame === "editor-fs" && <EditorFsFrame /> }
-        { frame === "network" && <NetworkFrame /> }
-        { frame === "stats" && <StatsFrame /> }
-        { frame === "fat-drives" && <FatDrivesFrame /> }
-        { frame === "quick-save" && <QuickSaveFrame /> }
-        { frame === "image-rendering" && <ImageRenderingFrame /> }
-    </div>;
-};
+    return (
+        <div
+            class={
+                "frame " +
+                (frameXs ? " frame-xs " : "") +
+                (frameXs || wideScreen ? "" : " frame-md")
+            }
+        >
+            {frame === "account" && <AccountFrame />}
+            {frame === "settings" && <SettingsFrame />}
+            {frame === "editor-conf" && <EditorConf />}
+            {frame === "editor-fs" && <EditorFsFrame />}
+            {frame === "network" && <NetworkFrame />}
+            {frame === "stats" && <StatsFrame />}
+            {frame === "fat-drives" && <FatDrivesFrame />}
+            {frame === "quick-save" && <QuickSaveFrame />}
+            {frame === "image-rendering" && <ImageRenderingFrame />}
+        </div>
+    );
+}

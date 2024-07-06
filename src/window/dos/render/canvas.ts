@@ -1,9 +1,7 @@
 import { CommandInterface } from "emulators";
 import { resizeCanvas } from "./resize";
 
-export function canvas(canvas: HTMLCanvasElement,
-                       ci: CommandInterface,
-                       forceAspect?: number) {
+export function canvas(canvas: HTMLCanvasElement, ci: CommandInterface, forceAspect?: number) {
     const context = canvas.getContext("2d");
     if (context === null) {
         throw new Error("Unable to create 2d context on given canvas");

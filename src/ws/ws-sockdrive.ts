@@ -72,42 +72,36 @@ export function createSockdrive(
 
             const sectorSize = templates[seq].sectorSize;
             const module = { HEAPU8: new Uint8Array(0) };
-            mapping[seq] = new Drive(
-                url,
-                owner,
-                name,
-                token,
-                stats,
-                module,
-                true,
-                true,
-            );
-            return new Promise<{ handle: Handle; aheadRange: number }>(
-                (resolve, reject) => {
-                    const drive = owner + "/" + name;
-                    mapping[seq].onOpen(
-                        (read: boolean, write: boolean, imageSize: number, preloadQueue: number[], aheadRange: number) => {
-                            memory[seq] = new Uint8Array(
-                                sectorSize /* write */ +
-                                    sectorSize * aheadRange,
-                            );
-                            module.HEAPU8 = memory[seq];
-                            onOpen(drive, read, write, imageSize, preloadQueue);
-                            resolve({
-                                handle: seq,
-                                aheadRange,
-                            });
-                        },
-                    );
-                    mapping[seq].onPreloadProgress((restBytes: number) => {
-                        onPreloadProgress(drive, restBytes);
-                    });
-                    mapping[seq].onError((e: Error) => {
-                        onError(e);
-                        reject(e);
-                    });
-                },
-            );
+            mapping[seq] = new Drive(url, owner, name, token, stats, module, true, true);
+            return new Promise<{ handle: Handle; aheadRange: number }>((resolve, reject) => {
+                const drive = owner + "/" + name;
+                mapping[seq].onOpen(
+                    (
+                        read: boolean,
+                        write: boolean,
+                        imageSize: number,
+                        preloadQueue: number[],
+                        aheadRange: number,
+                    ) => {
+                        memory[seq] = new Uint8Array(
+                            sectorSize /* write */ + sectorSize * aheadRange,
+                        );
+                        module.HEAPU8 = memory[seq];
+                        onOpen(drive, read, write, imageSize, preloadQueue);
+                        resolve({
+                            handle: seq,
+                            aheadRange,
+                        });
+                    },
+                );
+                mapping[seq].onPreloadProgress((restBytes: number) => {
+                    onPreloadProgress(drive, restBytes);
+                });
+                mapping[seq].onError((e: Error) => {
+                    onError(e);
+                    reject(e);
+                });
+            });
         },
         read: async (handle: Handle, sector: number): Promise<ReadResponse> => {
             if (mapping[handle]) {

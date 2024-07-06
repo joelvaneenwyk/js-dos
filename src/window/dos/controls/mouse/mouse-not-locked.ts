@@ -3,9 +3,7 @@ import { mount } from "./mount";
 
 const insensitivePadding = 1 / 100;
 
-export function mouseDefault(pointerNumber: number,
-                             el: HTMLElement,
-                             ci: CommandInterface) {
+export function mouseDefault(pointerNumber: number, el: HTMLElement, ci: CommandInterface) {
     const mapXY = (x: number, y: number) => doMapXY(x, y, el, ci);
 
     if (document.pointerLockElement === el) {
@@ -37,10 +35,7 @@ export function mouseDefault(pointerNumber: number,
     return mount(el, pointerNumber, onMouseDown, onMouseMove, onMouseUp, onMouseLeave);
 }
 
-function doMapXY(eX: number,
-                 eY: number,
-                 el: HTMLElement,
-                 ci: CommandInterface) {
+function doMapXY(eX: number, eY: number, el: HTMLElement, ci: CommandInterface) {
     const { width: containerWidth, height: containerHeight } = el.getBoundingClientRect();
     const frameWidth = ci.width();
     const frameHeight = ci.height();
@@ -65,7 +60,7 @@ function doMapXY(eX: number,
         x = 0;
     }
 
-    if (x >= (1 - insensitivePadding)) {
+    if (x >= 1 - insensitivePadding) {
         x = 1;
     }
 
@@ -73,7 +68,7 @@ function doMapXY(eX: number,
         y = 0;
     }
 
-    if (y >= (1 - insensitivePadding)) {
+    if (y >= 1 - insensitivePadding) {
         y = 1;
     }
 

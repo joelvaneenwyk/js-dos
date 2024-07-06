@@ -63,15 +63,13 @@ export function Login() {
         postAuthMessage("auth/login");
     }, [visible]);
 
-    return <div
-        id={"login"}
-        class={
-            "login-widget " + (visible ? "block" : "hidden")
-        }>
-        <iframe id="authentificator" ref={iframeRef} />
-        <CloseButton
-            class="absolute z-40 right-24 top-10"
-            onClose={() => dispatch(uiSlice.actions.modalNone()) }
-        />
-    </div>;
+    return (
+        <div id={"login"} class={"login-widget " + (visible ? "block" : "hidden")}>
+            <iframe id="authentificator" ref={iframeRef} />
+            <CloseButton
+                class="absolute z-40 right-24 top-10"
+                onClose={() => dispatch(uiSlice.actions.modalNone())}
+            />
+        </div>
+    );
 }

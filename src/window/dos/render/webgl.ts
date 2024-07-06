@@ -24,9 +24,7 @@ void main(void) {
 }
 `;
 
-export function webGl(canvas: HTMLCanvasElement,
-                      ci: CommandInterface,
-                      forceAspect?: number) {
+export function webGl(canvas: HTMLCanvasElement, ci: CommandInterface, forceAspect?: number) {
     const gl = canvas.getContext("webgl");
     if (gl === null) {
         throw new Error("Unable to create webgl context on given canvas");
@@ -47,9 +45,7 @@ export function webGl(canvas: HTMLCanvasElement,
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
     const pixel = new Uint8Array([0, 0, 0]);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB,
-        1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE,
-        pixel);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, pixel);
 
     gl.useProgram(shaderProgram);
     gl.activeTexture(gl.TEXTURE0);
@@ -64,9 +60,17 @@ export function webGl(canvas: HTMLCanvasElement,
 
     const updateTexture = () => {
         if (frame !== null) {
-            gl.texImage2D(gl.TEXTURE_2D, 0, frameFormat,
-                frameWidth, frameHeight, 0, frameFormat, gl.UNSIGNED_BYTE,
-                frame);
+            gl.texImage2D(
+                gl.TEXTURE_2D,
+                0,
+                frameFormat,
+                frameWidth,
+                frameHeight,
+                0,
+                frameFormat,
+                gl.UNSIGNED_BYTE,
+                frame,
+            );
             frame = null;
         }
         gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -121,7 +125,9 @@ function initShaderProgram(gl: WebGLRenderingContext, vsSource: string, fsSource
     gl.linkProgram(shaderProgram);
 
     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        throw new Error("Unable to initialize the shader program: " + gl.getProgramInfoLog(shaderProgram));
+        throw new Error(
+            "Unable to initialize the shader program: " + gl.getProgramInfoLog(shaderProgram),
+        );
     }
 
     return shaderProgram;
@@ -144,12 +150,8 @@ function initBuffers(gl: WebGLRenderingContext, vertexPosition: number, textureC
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     const positions = [
-        -1.0, -1.0, 0.0,
-        1.0, -1.0, 0.0,
-        1.0, 1.0, 0.0,
-        -1.0, -1.0, 0.0,
-        1.0, 1.0, 0.0,
-        -1.0, 1.0, 0.0,
+        -1.0, -1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, 1.0,
+        0.0,
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
     gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
@@ -157,16 +159,8 @@ function initBuffers(gl: WebGLRenderingContext, vertexPosition: number, textureC
 
     const textureCoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
-    const textureCoordinates = [
-        0.0, 1.0,
-        1.0, 1.0,
-        1.0, 0.0,
-        0.0, 1.0,
-        1.0, 0.0,
-        0.0, 0.0,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
-        gl.STATIC_DRAW);
+    const textureCoordinates = [0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0];
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates), gl.STATIC_DRAW);
 
     gl.vertexAttribPointer(textureCoord, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(textureCoord);

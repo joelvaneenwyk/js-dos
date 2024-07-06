@@ -1,6 +1,10 @@
 import {
-    TransportLayer, ClientMessage, MessageHandler,
-    ServerMessage, DataChunk, FsNode,
+    TransportLayer,
+    ClientMessage,
+    MessageHandler,
+    ServerMessage,
+    DataChunk,
+    FsNode,
 } from "emulators/dist/types/protocol/protocol";
 
 import { createSockdrive } from "./ws-sockdrive";
@@ -25,24 +29,55 @@ const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 const fMultiplier = 200000000;
 
-// eslint-disable-next-line max-len
 const clientMessageValues: ClientMessage[] = [
-    "wc-install", "wc-run", "wc-pack-fs-to-bundle", "wc-add-key", "wc-mouse-move", "wc-mouse-button", "wc-mouse-sync",
-    "wc-exit", "wc-sync-sleep", "wc-pause", "wc-resume", "wc-mute", "wc-unmute", "wc-connect", "wc-disconnect",
-    "wc-backend-event", "wc-asyncify-stats", "wc-fs-tree", "wc-fs-get-file", "wc-send-data-chunk",
+    "wc-install",
+    "wc-run",
+    "wc-pack-fs-to-bundle",
+    "wc-add-key",
+    "wc-mouse-move",
+    "wc-mouse-button",
+    "wc-mouse-sync",
+    "wc-exit",
+    "wc-sync-sleep",
+    "wc-pause",
+    "wc-resume",
+    "wc-mute",
+    "wc-unmute",
+    "wc-connect",
+    "wc-disconnect",
+    "wc-backend-event",
+    "wc-asyncify-stats",
+    "wc-fs-tree",
+    "wc-fs-get-file",
+    "wc-send-data-chunk",
 ];
 const clientMessageEnum: { [msg: string]: number } = {};
-clientMessageValues.forEach((v, i) => clientMessageEnum[v] = i);
+clientMessageValues.forEach((v, i) => (clientMessageEnum[v] = i));
 
 const serverMessageValues: ServerMessage[] = [
-    "ws-extract-progress", "ws-ready", "ws-server-ready", "ws-frame-set-size",
-    "ws-update-lines", "ws-log", "ws-warn", "ws-err",
-    "ws-stdout", "ws-exit", "ws-persist", "ws-sound-init", "ws-sound-push",
-    "ws-config", "ws-sync-sleep", "ws-connected", "ws-disconnected",
-    "ws-asyncify-stats", "ws-fs-tree", "ws-send-data-chunk",
+    "ws-extract-progress",
+    "ws-ready",
+    "ws-server-ready",
+    "ws-frame-set-size",
+    "ws-update-lines",
+    "ws-log",
+    "ws-warn",
+    "ws-err",
+    "ws-stdout",
+    "ws-exit",
+    "ws-persist",
+    "ws-sound-init",
+    "ws-sound-push",
+    "ws-config",
+    "ws-sync-sleep",
+    "ws-connected",
+    "ws-disconnected",
+    "ws-asyncify-stats",
+    "ws-fs-tree",
+    "ws-send-data-chunk",
 ];
 const serverMessageEnum: { [num: string]: ServerMessage } = {};
-serverMessageValues.forEach((v, i) => serverMessageEnum[i] = v);
+serverMessageValues.forEach((v, i) => (serverMessageEnum[i] = v));
 
 export class WsTransportLayer implements TransportLayer {
     socket: WebSocket;
@@ -56,7 +91,7 @@ export class WsTransportLayer implements TransportLayer {
     private sockdrive = createSockdrive(
         this.onSockdriveOpen.bind(this),
         this.onSockdriveError.bind(this),
-        this.onSockdrivePreloadProgress.bind(this)
+        this.onSockdrivePreloadProgress.bind(this),
     );
 
     private handler: MessageHandler = () => {
@@ -81,7 +116,9 @@ export class WsTransportLayer implements TransportLayer {
     }
 
     private readUint64(container: Uint8Array, offset: number) {
-        return this.readUint32(container, offset) + this.readUint32(container, offset + 4) * 2 ** 32;
+        return (
+            this.readUint32(container, offset) + this.readUint32(container, offset + 4) * 2 ** 32
+        );
     }
 
     private sendMessageToSocket(id: ClientMessage | number, ...payload: (Uint8Array | null)[]) {
@@ -238,7 +275,10 @@ export class WsTransportLayer implements TransportLayer {
                 break;
             case "ws-connected":
                 {
-                    this.handler(message, { networkType: payload[0]![0], address: textDecoder.decode(payload[1]!) });
+                    this.handler(message, {
+                        networkType: payload[0]![0],
+                        address: textDecoder.decode(payload[1]!),
+                    });
                 }
                 break;
             case "ws-disconnected":
@@ -310,7 +350,12 @@ export class WsTransportLayer implements TransportLayer {
                                     const owner = textDecoder.decode(payload[1]!);
                                     const name = textDecoder.decode(payload[2]!);
                                     const token = textDecoder.decode(payload[3]!);
-                                    const { handle, aheadRange } = await this.sockdrive.open(url, owner, name, token);
+                                    const { handle, aheadRange } = await this.sockdrive.open(
+                                        url,
+                                        owner,
+                                        name,
+                                        token,
+                                    );
                                     const template = this.sockdrive.template(handle);
                                     const packet = new Uint8Array(4 * 7);
                                     let offset = 0;
@@ -352,7 +397,11 @@ export class WsTransportLayer implements TransportLayer {
                                 }
                                 break;
                             default:
-                                console.log("WARN! Unhandled server non standard message", id, payload);
+                                console.log(
+                                    "WARN! Unhandled server non standard message",
+                                    id,
+                                    payload,
+                                );
                         }
                     })().catch((e) => {
                         this.handler("ws-err", {
@@ -370,7 +419,10 @@ export class WsTransportLayer implements TransportLayer {
     constructor(socket: WebSocket, onInit: (version: number) => void) {
         this.socket = socket;
         this.socket.addEventListener("error", (e) => {
-            this.handler("ws-err", { tag: "ws", message: (e as any).message ?? "Unknown transport layer error" });
+            this.handler("ws-err", {
+                tag: "ws",
+                message: (e as any).message ?? "Unknown transport layer error",
+            });
             this.handler("ws-exit", {});
             this.socket.close();
         });
@@ -403,7 +455,7 @@ export class WsTransportLayer implements TransportLayer {
                         messageId,
                         textEncoder.encode(chunk.type),
                         textEncoder.encode(chunk.name),
-                        chunk.data ? new Uint8Array(chunk.data) : null
+                        chunk.data ? new Uint8Array(chunk.data) : null,
                     );
                 }
                 break;
@@ -456,7 +508,7 @@ export class WsTransportLayer implements TransportLayer {
                     this.sendMessageToSocket(
                         messageId,
                         new Uint8Array([props.networkType]),
-                        textEncoder.encode(props.address)
+                        textEncoder.encode(props.address),
                     );
                 }
                 break;
@@ -467,7 +519,10 @@ export class WsTransportLayer implements TransportLayer {
                 break;
             case "wc-pack-fs-to-bundle":
                 {
-                    this.sendMessageToSocket(messageId, new Uint8Array([props.onlyChanges ? 1 : 0]));
+                    this.sendMessageToSocket(
+                        messageId,
+                        new Uint8Array([props.onlyChanges ? 1 : 0]),
+                    );
                 }
                 break;
             default:
@@ -489,7 +544,13 @@ export class WsTransportLayer implements TransportLayer {
         this.sendMessageToSocket("wc-exit");
     }
 
-    onSockdriveOpen(drive: string, read: boolean, write: boolean, imageSize: number, preloadQueue: number[]) {
+    onSockdriveOpen(
+        drive: string,
+        read: boolean,
+        write: boolean,
+        imageSize: number,
+        preloadQueue: number[],
+    ) {
         this.handler("ws-log", {
             tag: "worker",
             message:
@@ -522,7 +583,10 @@ export class WsTransportLayer implements TransportLayer {
     }
 }
 
-export function createWsTransportLayer(url: string, onInit: (version: number) => void): Promise<TransportLayer> {
+export function createWsTransportLayer(
+    url: string,
+    onInit: (version: number) => void,
+): Promise<TransportLayer> {
     return new Promise<TransportLayer>((resolve) => {
         let locked = false;
         const inervalId = setInterval(() => {

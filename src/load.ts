@@ -11,28 +11,30 @@ import { getNonSerializableStore } from "./store";
 declare const emulators: Emulators;
 
 export async function loadEmptyBundle(store: Store) {
-    await doLoadBundle("empty.jsdos",
+    await doLoadBundle(
+        "empty.jsdos",
         (async () => {
             const bundle = await emulators.bundle();
             return bundle.toUint8Array();
-        })(), null, null, store);
+        })(),
+        null,
+        null,
+        store,
+    );
 
     store.dispatch(uiSlice.actions.frameConf());
     store.dispatch(uiSlice.actions.setEditor(true));
 }
 
 export async function loadBundle(bundle: Uint8Array, openConfig: boolean, store: Store) {
-    await doLoadBundle("bundle.jsdos", Promise.resolve(bundle),
-        null, null, store);
+    await doLoadBundle("bundle.jsdos", Promise.resolve(bundle), null, null, store);
     if (openConfig) {
         store.dispatch(uiSlice.actions.frameConf());
     }
 }
 
 export function loadBundleFromFile(file: File, store: Store) {
-    return doLoadBundle(file.name,
-        bundleFromFile(file, store),
-        null, null, store);
+    return doLoadBundle(file.name, bundleFromFile(file, store), null, null, store);
 }
 
 export async function loadBundleFromConfg(config: DosConfig, store: Store) {
@@ -55,22 +57,25 @@ export async function loadBundleFromConfg(config: DosConfig, store: Store) {
 export async function loadBundleFromUrl(url: string, store: Store) {
     const owner = store.getState().auth.account?.email ?? "guest";
     const changesUrl = await getChangesUrl(owner, url);
-    return doLoadBundle(url,
+    return doLoadBundle(
+        url,
         bundleFromUrl(url, store),
         changesProducer(changesUrl, store),
         url,
-        store);
+        store,
+    );
 }
 
-async function doLoadBundle(bundleName: string,
-                            bundlePromise: Promise<Uint8Array>,
-                            bundleChangesPromise: (ReturnType<typeof changesProducer>) | null,
-                            bundleUrl: string | null,
-                            store: Store) {
+async function doLoadBundle(
+    bundleName: string,
+    bundlePromise: Promise<Uint8Array>,
+    bundleChangesPromise: ReturnType<typeof changesProducer> | null,
+    bundleUrl: string | null,
+    store: Store,
+) {
     const nonSerializableStore = getNonSerializableStore(store);
     const dispatch = store.dispatch;
     nonSerializableStore.loadedBundle = null;
-
 
     dispatch(dosSlice.actions.bndLoad(bundleName));
 
@@ -96,9 +101,12 @@ async function doLoadBundle(bundleName: string,
     dispatch(dosSlice.actions.bndReady({}));
 }
 
-async function changesProducer(bundleUrl: string, store: Store): Promise<{
-    url: string,
-    bundle: Uint8Array | null,
+async function changesProducer(
+    bundleUrl: string,
+    store: Store,
+): Promise<{
+    url: string;
+    bundle: Uint8Array | null;
 }> {
     if (!store.getState().auth.ready) {
         await new Promise<void>((resolve) => {

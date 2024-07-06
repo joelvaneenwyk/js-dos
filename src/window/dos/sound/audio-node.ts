@@ -41,8 +41,10 @@ class SamplesQueue {
     }
 }
 
-export function audioNode(ci: CommandInterface,
-                          bindVolumeFn?: (fn: (volume: number) => void) => () => void) {
+export function audioNode(
+    ci: CommandInterface,
+    bindVolumeFn?: (fn: (volume: number) => void) => () => void,
+) {
     const sampleRate = ci.soundFrequency();
     const channels = 1;
 
@@ -59,7 +61,6 @@ export function audioNode(ci: CommandInterface,
             latencyHint: "interactive",
         });
     } else if (typeof (window as any).webkitAudioContext !== "undefined") {
-        // eslint-disable-next-line new-cap
         audioContext = new (window as any).webkitAudioContext({
             sampleRate,
             latencyHint: "interactive",
@@ -132,9 +133,7 @@ export function audioNode(ci: CommandInterface,
         if (audioContext !== null) {
             audioNode.disconnect();
             gainNode.disconnect();
-            audioContext
-                .close()
-                .catch(console.error);
+            audioContext.close().catch(console.error);
             audioContext = null;
         }
 

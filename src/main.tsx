@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Ui } from "./ui";
 import { dosSlice } from "./store/dos";
 import { initEmulators } from "./store/dos";
-// eslint-disable-next-line
+
 import { uiSlice } from "./store/ui";
 import { i18nSlice } from "./i18n";
 import { getCache } from "./host/lcache";
@@ -13,16 +13,25 @@ import { loadBundleFromConfg, loadBundleFromUrl } from "./load";
 
 import { DosOptions, DosProps, DosFn } from "./public/types";
 import { browserSetFullScreen } from "./host/fullscreen";
-import { NonSerializableStore, Store, makeNonSerializableStore, makeStore, postJsDosEvent } from "./store";
+import {
+    NonSerializableStore,
+    Store,
+    makeNonSerializableStore,
+    makeStore,
+    postJsDosEvent,
+} from "./store";
 
-export const Dos: DosFn = (element: HTMLDivElement,
-    options: Partial<DosOptions> = {}): DosProps => {
+export const Dos: DosFn = (
+    element: HTMLDivElement,
+    options: Partial<DosOptions> = {},
+): DosProps => {
     const nonSerializableStore = makeNonSerializableStore(options);
     const store = makeStore(nonSerializableStore, options);
 
-
-    if (store.getState().auth.account?.email === "dz.caiiiycuk@gmail.com" ||
-        store.getState().auth.account?.email === "caiiiycuk@gmail.com") {
+    if (
+        store.getState().auth.account?.email === "dz.caiiiycuk@gmail.com" ||
+        store.getState().auth.account?.email === "caiiiycuk@gmail.com"
+    ) {
         store.dispatch(dosSlice.actions.setSockdriveWrite(false));
     }
 
@@ -40,30 +49,35 @@ export const Dos: DosFn = (element: HTMLDivElement,
             pollStep = step;
 
             switch (state.dos.step) {
-                case "emu-ready": {
-                    const cachedEmail = state.auth.account?.email;
-                    nonSerializableStore.cache = await getCache(cachedEmail ?? "guest");
+                case "emu-ready":
+                    {
+                        const cachedEmail = state.auth.account?.email;
+                        nonSerializableStore.cache = await getCache(cachedEmail ?? "guest");
 
-                    if (nonSerializableStore.options.url) {
-                        try {
-                            await loadBundleFromUrl(nonSerializableStore.options.url, store);
-                        } catch (e: any) {
-                            store.dispatch(dosSlice.actions.bndError(e.message));
+                        if (nonSerializableStore.options.url) {
+                            try {
+                                await loadBundleFromUrl(nonSerializableStore.options.url, store);
+                            } catch (e: any) {
+                                store.dispatch(dosSlice.actions.bndError(e.message));
+                            }
+                        } else if (nonSerializableStore.options.dosboxConf) {
+                            loadBundleFromConfg(
+                                {
+                                    dosboxConf: nonSerializableStore.options.dosboxConf,
+                                    jsdosConf: {
+                                        version: "8",
+                                    },
+                                },
+                                store,
+                            );
+                        } else {
+                            store.dispatch(uiSlice.actions.windowSelect());
                         }
-                    } else if (nonSerializableStore.options.dosboxConf) {
-                        loadBundleFromConfg({
-                            dosboxConf: nonSerializableStore.options.dosboxConf,
-                            jsdosConf: {
-                                version: "8",
-                            },
-                        }, store);
-                    } else {
-                        store.dispatch(uiSlice.actions.windowSelect());
-                    }
 
-                    postJsDosEvent(nonSerializableStore, "emu-ready");
-                } break;
-            };
+                        postJsDosEvent(nonSerializableStore, "emu-ready");
+                    }
+                    break;
+            }
         })().catch(console.error);
     }
     store.subscribe(pollEvents);
@@ -154,12 +168,7 @@ export const Dos: DosFn = (element: HTMLDivElement,
         setFullScreen(options.fullScreen);
     }
 
-    render(
-        <Provider store={store}>
-            {<Ui /> as any}
-        </Provider>,
-        element,
-    );
+    render(<Provider store={store}>{(<Ui />) as any}</Provider>, element);
 
     return {
         setTheme,
@@ -176,12 +185,15 @@ export const Dos: DosFn = (element: HTMLDivElement,
     };
 };
 
-function setupRootElement(root: HTMLDivElement, nonSerializableStore: NonSerializableStore, store: Store) {
+function setupRootElement(
+    root: HTMLDivElement,
+    nonSerializableStore: NonSerializableStore,
+    store: Store,
+) {
     nonSerializableStore.root = root;
     root.classList.add("jsdos-rso");
     root.addEventListener("contextmenu", (e) => {
-        if (e.target !== null &&
-            (e.target as HTMLElement).classList?.contains("contextmenu")) {
+        if (e.target !== null && (e.target as HTMLElement).classList?.contains("contextmenu")) {
             return;
         }
         e.stopPropagation();

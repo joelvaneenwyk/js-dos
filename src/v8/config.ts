@@ -7,7 +7,8 @@ export const uploadNamspace = "dzapi";
 export const apiEndpoint = "https://d5dn8hh4ivlobv6682ep.apigw.yandexcloud.net";
 export const presignPut = apiEndpoint + "/presign-put";
 
-export const xsollaSubscriptons = "https://subscriptions.xsolla.com​/api/user/v1/projects/184012/subscriptions";
+export const xsollaSubscriptons =
+    "https://subscriptions.xsolla.com​/api/user/v1/projects/184012/subscriptions";
 export const xsollaPremiumId = "sumOxNVr";
 
 export const brCdn = "https://br.cdn.dos.zone";

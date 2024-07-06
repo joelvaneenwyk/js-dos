@@ -4,32 +4,32 @@ import { dosSlice } from "../store/dos";
 import { Slider } from "./slider";
 import { State } from "../store";
 
-export function MouseSensitiviySlider(props: {
-    class?: string,
-}) {
+export function MouseSensitiviySlider(props: { class?: string }) {
     const t = useT();
     const sensitivity = useSelector((state: State) => state.dos.mouseSensitivity);
     const dispatch = useDispatch();
 
-    return <Slider
-        class={"mt-4 " + props.class}
-        label={t("mouse_sensitivity")}
-        value={sensitivity}
-        onChange={(value) => dispatch(dosSlice.actions.mouseSensitivity(value)) }
-    />;
+    return (
+        <Slider
+            class={"mt-4 " + props.class}
+            label={t("mouse_sensitivity")}
+            value={sensitivity}
+            onChange={(value) => dispatch(dosSlice.actions.mouseSensitivity(value))}
+        />
+    );
 }
 
-export function VolumeSlider(props: {
-    class?: string,
-}) {
+export function VolumeSlider(props: { class?: string }) {
     const t = useT();
     const volume = useSelector((state: State) => state.dos.volume);
     const dispatch = useDispatch();
 
-    return <Slider
-        class={props.class}
-        label={t("volume")}
-        value={volume}
-        onChange={(value) => dispatch(dosSlice.actions.volume(value)) }
-    />;
+    return (
+        <Slider
+            class={props.class}
+            label={t("volume")}
+            value={volume}
+            onChange={(value) => dispatch(dosSlice.actions.volume(value))}
+        />
+    );
 }

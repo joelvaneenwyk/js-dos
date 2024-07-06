@@ -13,8 +13,7 @@ export interface Cache {
 export class CacheNoop implements Cache {
     public owner = "";
 
-    public close() {
-    }
+    public close() {}
 
     public put(key: string, data: Uint8Array): Promise<void> {
         return Promise.resolve();
@@ -46,13 +45,16 @@ class LCache implements Cache {
     private indexedDB: IDBFactory;
     private db: IDBDatabase | null = null;
 
-    constructor(owner: string,
-        onready: (cache: Cache) => void,
-        onerror: (msg: string) => void) {
+    constructor(owner: string, onready: (cache: Cache) => void, onerror: (msg: string) => void) {
         this.owner = owner;
-        this.indexedDB = (typeof window === "undefined" ? undefined : window.indexedDB ||
-            (window as any).mozIndexedDB ||
-            (window as any).webkitIndexedDB || (window as any).msIndexedDB) as any;
+        this.indexedDB = (
+            typeof window === "undefined"
+                ? undefined
+                : window.indexedDB ||
+                  (window as any).mozIndexedDB ||
+                  (window as any).webkitIndexedDB ||
+                  (window as any).msIndexedDB
+        ) as any;
 
         if (!this.indexedDB) {
             onerror("Indexed db is not supported on this host");
@@ -134,20 +136,23 @@ class LCache implements Cache {
                 }
             }
 
-
             if (this.db === null) {
                 rejectOrResolve("db is not initalized");
                 return;
             }
 
             const transaction = this.db.transaction(this.storeName, "readonly");
-            const request = transaction.objectStore(this.storeName).get(key) as IDBRequest<ArrayBuffer>;
+            const request = transaction
+                .objectStore(this.storeName)
+                .get(key) as IDBRequest<ArrayBuffer>;
             request.onerror = () => reject(new Error("Can't read value for key '" + key + "'"));
             request.onsuccess = () => {
                 if (request.result) {
                     resolve(new Uint8Array(request.result));
                 } else {
-                    rejectOrResolve("Result is empty for key '" + key + "', result: " + request.result);
+                    rejectOrResolve(
+                        "Result is empty for key '" + key + "', result: " + request.result,
+                    );
                 }
             };
         });

@@ -5,7 +5,7 @@ const NEXT_PART_SYFFIX = ".";
 class MemStorage implements Storage {
     length = 0;
 
-    private storage: {[key: string]: string} = {};
+    private storage: { [key: string]: string } = {};
 
     setItem(key: string, value: string): void {
         this.storage[key] = value;
@@ -32,7 +32,6 @@ class MemStorage implements Storage {
         this.storage = {};
     }
 }
-
 
 class LStorage implements Storage {
     private backend: Storage;

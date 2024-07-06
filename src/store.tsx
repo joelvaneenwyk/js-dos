@@ -9,25 +9,31 @@ import { DosEvent, DosOptions } from "./public/types";
 import { CommandInterface, InitFs } from "emulators";
 import { useStore } from "react-redux";
 import { Cache, CacheNoop } from "./host/lcache";
-import { InitState, createInitSlice, initSlice, sockdriveBackend, sockdriveBackendNames } from "./store/init";
+import {
+    InitState,
+    createInitSlice,
+    initSlice,
+    sockdriveBackend,
+    sockdriveBackendNames,
+} from "./store/init";
 
 export interface LoadedBundle {
-    bundleUrl: string | null,
-    bundleChangesUrl: string | null,
-    bundle: InitFs | null,
-    bundleChanges: Uint8Array | null,
+    bundleUrl: string | null;
+    bundleChangesUrl: string | null;
+    bundle: InitFs | null;
+    bundleChanges: Uint8Array | null;
 }
 
 export interface NonSerializableStore {
-    root: HTMLDivElement,
-    loadedBundle: LoadedBundle | null,
-    ci: CommandInterface | null,
-    cache: Cache,
-    options: Partial<DosOptions>,
+    root: HTMLDivElement;
+    loadedBundle: LoadedBundle | null;
+    ci: CommandInterface | null;
+    cache: Cache;
+    options: Partial<DosOptions>;
 }
 
 export interface DosAction {
-    asyncStore: (cakkback: (store: Store) => void) => void,
+    asyncStore: (cakkback: (store: Store) => void) => void;
 }
 
 const dosMiddleware: ThunkMiddleware<any> = (store) => (next) => (action) => {
@@ -35,8 +41,7 @@ const dosMiddleware: ThunkMiddleware<any> = (store) => (next) => (action) => {
         setTimeout(() => callback(store), 4);
     }
 
-    const actionWithAsyncDispatch =
-        Object.assign({}, action, { asyncStore });
+    const actionWithAsyncDispatch = Object.assign({}, action, { asyncStore });
 
     next(actionWithAsyncDispatch);
 };
@@ -53,7 +58,10 @@ export function makeNonSerializableStore(options: Partial<DosOptions>): NonSeria
     };
 }
 
-export function makeStore(nonSerializableStore: NonSerializableStore, options: Partial<DosOptions>) {
+export function makeStore(
+    nonSerializableStore: NonSerializableStore,
+    options: Partial<DosOptions>,
+) {
     const { storeUid, slice } = createInitSlice();
     const store = configureStore({
         reducer: {
@@ -72,7 +80,10 @@ export function makeStore(nonSerializableStore: NonSerializableStore, options: P
         },
     });
     nonSerializableStoreMap[storeUid] = nonSerializableStore;
-    if (options.sockdriveBackend && sockdriveBackendNames.indexOf(options.sockdriveBackend.name) === -1) {
+    if (
+        options.sockdriveBackend &&
+        sockdriveBackendNames.indexOf(options.sockdriveBackend.name) === -1
+    ) {
         sockdriveBackendNames.push(options.sockdriveBackend.name);
         sockdriveBackend[options.sockdriveBackend.name] = {
             sockdriveEndpoint: "https://" + options.sockdriveBackend.host,
@@ -81,16 +92,16 @@ export function makeStore(nonSerializableStore: NonSerializableStore, options: P
         store.dispatch(initSlice.actions.setSockdriveBackendName(options.sockdriveBackend.name));
     }
     return store;
-};
+}
 
 export interface State {
-    init: InitState,
-    ui: UiState,
-    auth: AuthState,
-    dos: DosState,
-    i18n: I18NState,
-    editor: EditorState,
-    storage: StorageState,
+    init: InitState;
+    ui: UiState;
+    auth: AuthState;
+    dos: DosState;
+    i18n: I18NState;
+    editor: EditorState;
+    storage: StorageState;
 }
 
 export type Store = ReturnType<typeof makeStore>;
@@ -107,10 +118,14 @@ export function useNonSerializableStore() {
     return getNonSerializableStore(useStore());
 }
 
-export function postJsDosEvent(nonSerializableStore: NonSerializableStore, event: DosEvent, ci?: CommandInterface) {
+export function postJsDosEvent(
+    nonSerializableStore: NonSerializableStore,
+    event: DosEvent,
+    ci?: CommandInterface,
+) {
     if (nonSerializableStore.options.onEvent) {
         setTimeout(() => {
             nonSerializableStore.options.onEvent?.(event, ci);
         }, 4);
     }
-};
+}

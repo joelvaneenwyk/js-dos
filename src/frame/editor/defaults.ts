@@ -1,8 +1,8 @@
-/* eslint-disable max-len */
-export const dosboxconf = [{
-    name: "7.xx",
-    backend: "dosbox",
-    contents: `[sdl]
+export const dosboxconf = [
+    {
+        name: "7.xx",
+        backend: "dosbox",
+        contents: `[sdl]
 autolock=false
 
 fullscreen=false
@@ -209,10 +209,11 @@ echo on
 # █ ▀▀▀ █ ▄▀▀█▀█▀▄ ▀▀▄▄█▄█
 # ▀▀▀▀▀▀▀ ▀   ▀▀ ▀  ▀   ▀▀▀
 `.replace(/\n/g, "\r\n"),
-}, {
-    name: "DOS 7.1",
-    backend: "dosboxX",
-    contents: `
+    },
+    {
+        name: "DOS 7.1",
+        backend: "dosboxX",
+        contents: `
 [sdl]
 autolock=false
 
@@ -265,10 +266,11 @@ echo on
 # ▀▀▀▀▀▀▀ ▀   ▀▀ ▀  ▀   ▀▀▀
 #
 `.replace(/\n/g, "\r\n"),
-}, {
-    name: "Win 95",
-    backend: "dosboxX",
-    contents: `
+    },
+    {
+        name: "Win 95",
+        backend: "dosboxX",
+        contents: `
 [sdl]
 autolock=false
 mouse_emulation=integration
@@ -340,10 +342,11 @@ echo on
 # ▀▀▀▀▀▀▀ ▀   ▀▀ ▀  ▀   ▀▀▀
 #
 `.replace(/\n/g, "\r\n"),
-}, {
-    name: "Win 98",
-    backend: "dosboxX",
-    contents: `
+    },
+    {
+        name: "Win 98",
+        backend: "dosboxX",
+        contents: `
 [sdl]
 autolock=false
 mouse_emulation=integration
@@ -415,5 +418,5 @@ echo on
 # ▀▀▀▀▀▀▀ ▀   ▀▀ ▀  ▀   ▀▀▀
 #
 `.replace(/\n/g, "\r\n"),
-},
+    },
 ];

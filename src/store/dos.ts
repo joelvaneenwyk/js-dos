@@ -6,73 +6,78 @@ import { lStorage } from "../host/lstorage";
 const alphabet = "qwertyuiopasdfghjklzxcvbnm1234567890";
 declare const emulators: Emulators;
 export interface BundleConfig {
-    name?: string,
-    version?: string,
-    backend?: string,
-    render?: string,
-};
+    name?: string;
+    version?: string;
+    backend?: string;
+    render?: string;
+}
 
 export const BackendValues = <const>["dosbox", "dosboxX"];
-export type Backend = typeof BackendValues[number];
+export type Backend = (typeof BackendValues)[number];
 
 export const RenderBackendValues = <const>["webgl", "canvas"];
-export type RenderBackend = typeof RenderBackendValues[number];
+export type RenderBackend = (typeof RenderBackendValues)[number];
 
 export const RenderAspectValues = <const>["AsIs", "1/1", "5/4", "4/3", "16/10", "16/9", "Fit"];
-export type RenderAspect = typeof RenderAspectValues[number];
+export type RenderAspect = (typeof RenderAspectValues)[number];
 export const FitConstant = 65535;
 
 export const ImageRenderingValues = <const>["pixelated", "smooth"];
-export type ImageRendering = typeof ImageRenderingValues[number];
+export type ImageRendering = (typeof ImageRenderingValues)[number];
 
 export interface EmulatorStats {
-    cyclesPerMs: number,
-    nonSkippableSleepPreSec: number,
-    sleepPerSec: number,
-    sleepTimePerSec: number,
-    framePerSec: number,
-    soundPerSec: number,
-    msgSentPerSec: number,
-    msgRecvPerSec: number,
-    netSent: number,
-    netRecv: number,
-    driveSent: number,
-    driveRecv: number,
-    driveRecvTime: number,
-    driveCacheHit: number,
-    driveCacheMiss: number,
-    driveCacheUsed: number,
-};
+    cyclesPerMs: number;
+    nonSkippableSleepPreSec: number;
+    sleepPerSec: number;
+    sleepTimePerSec: number;
+    framePerSec: number;
+    soundPerSec: number;
+    msgSentPerSec: number;
+    msgRecvPerSec: number;
+    netSent: number;
+    netRecv: number;
+    driveSent: number;
+    driveRecv: number;
+    driveRecvTime: number;
+    driveCacheHit: number;
+    driveCacheMiss: number;
+    driveCacheUsed: number;
+}
 
 const initialState: {
     step:
-    "emu-init" | "emu-error" | "emu-ready" |
-    "bnd-load" | "bnd-error" | "bnd-config" | "bnd-ready" |
-    "bnd-play",
-    emuVersion: string,
-    worker: boolean,
-    backend: Backend,
-    backendLocked: boolean,
-    backendHardware: boolean,
-    renderBackend: RenderBackend,
-    renderAspect: RenderAspect,
-    volume: number,
-    mouseSensitivity: number,
-    mouseCapture: boolean,
-    paused: boolean,
-    error: null | undefined | string,
-    bundle: string | null,
-    config: BundleConfig,
-    stats: EmulatorStats,
-    ci: boolean,
-    ciStartedAt: number,
+        | "emu-init"
+        | "emu-error"
+        | "emu-ready"
+        | "bnd-load"
+        | "bnd-error"
+        | "bnd-config"
+        | "bnd-ready"
+        | "bnd-play";
+    emuVersion: string;
+    worker: boolean;
+    backend: Backend;
+    backendLocked: boolean;
+    backendHardware: boolean;
+    renderBackend: RenderBackend;
+    renderAspect: RenderAspect;
+    volume: number;
+    mouseSensitivity: number;
+    mouseCapture: boolean;
+    paused: boolean;
+    error: null | undefined | string;
+    bundle: string | null;
+    config: BundleConfig;
+    stats: EmulatorStats;
+    ci: boolean;
+    ciStartedAt: number;
     network: {
-        server: "netherlands" | "newyork" | "singapore",
-        room: string,
-        ipx: "connecting" | "connected" | "disconnected" | "error",
-    },
-    imageRendering: ImageRendering,
-    sockdriveWrite: boolean,
+        server: "netherlands" | "newyork" | "singapore";
+        room: string;
+        ipx: "connecting" | "connected" | "disconnected" | "error";
+    };
+    imageRendering: ImageRendering;
+    sockdriveWrite: boolean;
 } = {
     step: "emu-init",
     emuVersion: "-",
@@ -82,11 +87,11 @@ const initialState: {
     worker: lStorage.getItem("worker") !== "false",
     backend: (lStorage.getItem("backend") ?? "dosbox") as Backend,
     backendLocked: false,
-    backendHardware: (lStorage.getItem("backendHardware") !== "false"),
+    backendHardware: lStorage.getItem("backendHardware") !== "false",
     renderBackend: (lStorage.getItem("renderBackend") ?? "webgl") as RenderBackend,
     renderAspect: (lStorage.getItem("renderAspect") ?? "AsIs") as RenderAspect,
-    volume: (Number.parseFloat(lStorage.getItem("volume") ?? "1.0")),
-    mouseSensitivity: (Number.parseFloat(lStorage.getItem("mouse_sensitivity") ?? "1.0")),
+    volume: Number.parseFloat(lStorage.getItem("volume") ?? "1.0"),
+    mouseSensitivity: Number.parseFloat(lStorage.getItem("mouse_sensitivity") ?? "1.0"),
     mouseCapture: false,
     paused: false,
     stats: {
@@ -202,7 +207,7 @@ export const dosSlice = createSlice({
                 s.ciStartedAt = Date.now();
             }
         },
-        connectIpx: (s, a: { payload: { room: string, address: string } }) => {
+        connectIpx: (s, a: { payload: { room: string; address: string } }) => {
             if (s.network.ipx === "connected") {
                 throw new Error("Already connected");
             }
@@ -219,12 +224,15 @@ export const dosSlice = createSlice({
                     throw new Error("DOS is not started");
                 }
 
-                const canonicalAddress = address.endsWith("/") ?
-                    address.substring(0, address.length - 1) :
-                    address;
+                const canonicalAddress = address.endsWith("/")
+                    ? address.substring(0, address.length - 1)
+                    : address;
 
-                nonSerializableStore.ci.networkConnect(0 /* NetworkType.NETWORK_DOSBOX_IPX */,
-                    canonicalAddress + ":1900/ipx/" + room.replaceAll("@", "_"))
+                nonSerializableStore.ci
+                    .networkConnect(
+                        0 /* NetworkType.NETWORK_DOSBOX_IPX */,
+                        canonicalAddress + ":1900/ipx/" + room.replaceAll("@", "_"),
+                    )
                     .then(() => {
                         store.dispatch(dosSlice.actions.statusIpx("connected"));
                     })
@@ -288,13 +296,17 @@ function initEmulatorsJs(pathPrefix: string) {
             resolve();
         };
         script.onerror = (err) => {
-            reject(new Error("Unable to add emulators.js. Probably you should set the " +
-                "'pathPrefix' option to point to the js-dos folder."));
+            reject(
+                new Error(
+                    "Unable to add emulators.js. Probably you should set the " +
+                        "'pathPrefix' option to point to the js-dos folder.",
+                ),
+            );
         };
 
         document.head.appendChild(script);
     });
-};
+}
 
 function randomSymbol() {
     return alphabet[Math.round(Math.random() * (alphabet.length - 1))];

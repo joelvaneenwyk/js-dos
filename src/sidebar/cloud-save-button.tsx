@@ -7,9 +7,7 @@ import { DisketteIcon } from "./diskette-icon";
 import { useT } from "../i18n";
 import { putChanges } from "../v8/changes";
 
-export function CloudSaveButton(props: {
-    class?: string,
-}) {
+export function CloudSaveButton(props: { class?: string }) {
     const [busy, setBusy] = useState<boolean>(false);
     const account = useSelector((state: State) => state.auth.account);
     const disabled = account === null && false;
@@ -18,9 +16,11 @@ export function CloudSaveButton(props: {
     const cloudSaves = useSelector((state: State) => state.ui.cloudSaves);
     const nonSerializableStore = useNonSerializableStore();
 
-    if (!cloudSaves ||
+    if (
+        !cloudSaves ||
         nonSerializableStore.loadedBundle === null ||
-        nonSerializableStore.loadedBundle.bundleChangesUrl === null) {
+        nonSerializableStore.loadedBundle.bundleChangesUrl === null
+    ) {
         return null;
     }
 
@@ -55,35 +55,55 @@ export function CloudSaveButton(props: {
                 }
             }
 
-            dispatch(uiSlice.actions.showToast({
-                message: t("success"),
-                intent: "success",
-            }));
+            dispatch(
+                uiSlice.actions.showToast({
+                    message: t("success"),
+                    intent: "success",
+                }),
+            );
         } catch (e: any) {
-            dispatch(uiSlice.actions.showToast({
-                message: t("unable_to_save"),
-                intent: "error",
-            }));
+            dispatch(
+                uiSlice.actions.showToast({
+                    message: t("unable_to_save"),
+                    intent: "error",
+                }),
+            );
             console.error(e);
         } finally {
             setBusy(false);
         }
     }
 
-    return <div class={"save-button sidebar-button overflow-hidden " +
-        (busy ? " sidebar-highlight " : "") + props.class +
-        (disabled ? " opacity-50" : "")} onClick={onClick}>
-        <div class="w-full h-full flex justify-center">
-            <DisketteIcon />
-            {busy && <div class="sidebar-badge" />}
-            {disabled && <LockBadge />}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke-width="1.5" stroke="currentColor"
-                class="absolute bottom-1 w-3 h-3 text-primary-content">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775
-                    5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-            </svg>
+    return (
+        <div
+            class={
+                "save-button sidebar-button overflow-hidden " +
+                (busy ? " sidebar-highlight " : "") +
+                props.class +
+                (disabled ? " opacity-50" : "")
+            }
+            onClick={onClick}
+        >
+            <div class="w-full h-full flex justify-center">
+                <DisketteIcon />
+                {busy && <div class="sidebar-badge" />}
+                {disabled && <LockBadge />}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="absolute bottom-1 w-3 h-3 text-primary-content"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775
+                    5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                    />
+                </svg>
+            </div>
         </div>
-    </div >;
+    );
 }

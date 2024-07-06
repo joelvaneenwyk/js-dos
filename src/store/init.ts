@@ -2,27 +2,27 @@ import { createSlice } from "@reduxjs/toolkit";
 import { lStorage } from "../host/lstorage";
 
 export const sockdriveBackendNames = ["localhost", "js-dos"];
-export type SockdriveBackendName = typeof sockdriveBackendNames[number];
+export type SockdriveBackendName = (typeof sockdriveBackendNames)[number];
 export const sockdriveBackend: {
     [key: SockdriveBackendName]: {
-        sockdriveEndpoint: string,
-        sockdriveWssEndpoint: string,
-    }
+        sockdriveEndpoint: string;
+        sockdriveWssEndpoint: string;
+    };
 } = {
     "js-dos": {
         sockdriveEndpoint: "https://sockdrive.js-dos.com:8001",
         sockdriveWssEndpoint: "wss://sockdrive.js-dos.com:8001",
     },
-    "localhost": {
+    localhost: {
         sockdriveEndpoint: "http://localhost:8001",
         sockdriveWssEndpoint: "ws://localhost:8001",
     },
 };
 
 export interface InitState {
-    uid: string,
-    sockdriveBackendName: SockdriveBackendName,
-};
+    uid: string;
+    sockdriveBackendName: SockdriveBackendName;
+}
 
 let storeUid = -1;
 export function createInitSlice() {

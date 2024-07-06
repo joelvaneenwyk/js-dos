@@ -5,7 +5,7 @@ export async function linkToBuy(token: string): Promise<string | null> {
         method: "POST",
         cache: "no-cache",
         headers: {
-            "Authorization": "Bearer " + token,
+            Authorization: "Bearer " + token,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -28,7 +28,7 @@ export async function havePremium(token: string): Promise<boolean> {
         method: "GET",
         cache: "no-cache",
         headers: {
-            "Authorization": "Bearer " + token,
+            Authorization: "Bearer " + token,
         },
     });
 
@@ -42,13 +42,12 @@ export async function havePremium(token: string): Promise<boolean> {
 }
 
 export async function cancle(token: string): Promise<boolean> {
-    // eslint-disable-next-line
     // https://subscriptions.xsolla.com/api/doc/user#/Subscriptions/put_xsolla_subscription_apiuser_cancelusersubscription
     const response = await fetch(xsollaSubscriptons + "/" + xsollaPremiumId + "/cancel", {
         method: "PUT",
         cache: "no-cache",
         headers: {
-            "Authorization": "Bearer " + token,
+            Authorization: "Bearer " + token,
         },
     });
 
