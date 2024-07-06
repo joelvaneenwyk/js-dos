@@ -1222,6 +1222,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/events@npm:^3":
+  version: 3.0.3
+  resolution: "@types/events@npm:3.0.3"
+  checksum: 10c0/3a56f8c51eb4ebc0d05dcadca0c6636c816acc10216ce36c976fad11e54a01f4bb979a07211355686015884753b37f17d74bfdc7aaf4ebb027c1e8a501c7b21d
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:^8":
   version: 8.1.0
   resolution: "@types/glob@npm:8.1.0"
@@ -1294,6 +1301,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/22640f0eb2a955872e4529a93be1b719f67b527b80fdab51419756d20e21b5ce0f4ccbee9a3e2ff20e5def647f77baf77b4b0434ff8896791c102165ec0c3e48
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.14.6":
+  version: 20.14.10
+  resolution: "@types/node@npm:20.14.10"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10c0/0b06cff14365c2d0085dc16cc8cbea5c40ec09cfc1fea966be9eeecf35562760bfde8f88e86de6edfaf394501236e229d9c1084fad04fb4dec472ae245d8ae69
   languageName: node
   linkType: hard
 
@@ -2311,7 +2327,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^5.1.1":
+"chai@npm:^5":
   version: 5.1.1
   resolution: "chai@npm:5.1.1"
   dependencies:
@@ -3329,7 +3345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.0.0, events@npm:^3.2.0":
+"events@npm:^3, events@npm:^3.0.0, events@npm:^3.2.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: 10c0/d6b6f2adbccbcda74ddbab52ed07db727ef52e31a61ed26db9feb7dc62af7fc8e060defa65e5f8af9449b86b52cc1a1f6a79f2eafcf4e62add2b7a1fa4a432f6
@@ -6315,14 +6331,18 @@ __metadata:
   resolution: "sockdrive-asyncify@workspace:src/sockdrive"
   dependencies:
     "@types/chai": "npm:^4.3.16"
+    "@types/events": "npm:^3"
     "@types/mocha": "npm:^10"
+    "@types/node": "npm:^20.14.6"
     "@typescript-eslint/eslint-plugin": "npm:^7"
     "@typescript-eslint/parser": "npm:^7"
     buffer: "npm:^6"
-    chai: "npm:^5.1.1"
+    chai: "npm:^5"
     eslint: "npm:<9"
     eslint-webpack-plugin: "npm:^4"
+    events: "npm:^3"
     fifolock: "npm:^1"
+    mocha: "npm:^10"
     process: "npm:^0.11"
     stream-browserify: "npm:^3"
     struct-fu: "npm:^1.2"
