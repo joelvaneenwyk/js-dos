@@ -833,7 +833,7 @@ __metadata:
     typescript-eslint: "npm:^7.13"
     vite: "npm:^5"
   peerDependencies:
-    eslint: ^9
+    eslint: ^8.56.0
     preact: ^10
   languageName: unknown
   linkType: soft
