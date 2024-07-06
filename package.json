@@ -27,6 +27,10 @@
     "dev": "vite",
     "build": "tsc && vite build && yarn build:emulators",
     "build:emulators": "shx mkdir -p ./dist/emulators && shx cp -r ./node_modules/emulators/dist/* ./dist/emulators",
+    "ci": "yarn ci:mkdir && yarn ci:vite && yarn ci:zip",
+    "ci:mkdir": "shx mkdir -p public/emulators && shx cp -rv node_modules/emulators/dist/* public/emulators",
+    "ci:vite": "NODE_ENV=production yarn run vite build --base /latest --sourcemap true --minify terser",
+    "ci:zip": "zip -9r release.zip dist/*",
     "preview": "vite preview",
     "lint": "eslint ."
   },

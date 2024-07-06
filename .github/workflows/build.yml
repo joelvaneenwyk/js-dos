@@ -38,9 +38,7 @@ jobs:
 
     - run: yarn lint
 
-    - run: mkdir -p public/emulators && cp -rv node_modules/emulators/dist/* public/emulators
-    - run: NODE_ENV=production yarn run vite build --base /latest --sourcemap true --minify terser
-    - run: zip -9r release.zip dist/*
+    - run: yarn ci
 
     - name: publish
       if: startsWith(github.ref, 'refs/tags/')
