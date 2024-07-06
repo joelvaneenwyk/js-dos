@@ -5,7 +5,7 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-const baseConfig = tseslint.config(
+export default [
     {
         ignores: ["dist/**/*"],
     },
@@ -37,6 +37,5 @@ const baseConfig = tseslint.config(
             "no-undef": "off",
         },
     },
-);
-
-export default [...baseConfig, eslintPluginPrettierRecommended];
+    eslintPluginPrettierRecommended,
+];
