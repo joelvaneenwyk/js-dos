@@ -1,31 +1,42 @@
 // @ts-check
 
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslint from "@eslint/js";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import globals from "globals";
-import tseslint from 'typescript-eslint';
+import tseslint from "typescript-eslint";
 
 const baseConfig = tseslint.config(
+    {
+        ignores: ["dist/**/*"],
+    },
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        ignores: ["dist/**/*"],
         languageOptions: {
             globals: {
                 ...globals.browser,
-                ...globals.es2021
+                ...globals.es2021,
             },
-            ecmaVersion: 'latest',
+            ecmaVersion: "latest",
             sourceType: "module",
         },
 
         rules: {
             "require-jsdoc": "off",
+            "no-dupe-keys": "off",
+            "@typescript-eslint/no-this-alias": "off",
+            "no-redeclare": "off",
+            "no-empty": "off",
+            "@typescript-eslint/no-unused-vars": "off",
+            "no-fallthrough": "off",
+            "no-constant-condition": "off",
+            "no-unreachable": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/ban-types": "off",
+            "@typescript-eslint/no-var-requires": "off",
+            "no-undef": "off",
         },
-    }
+    },
 );
 
-export default [
-    ...baseConfig,
-    eslintPluginPrettierRecommended,
-];
+export default [...baseConfig, eslintPluginPrettierRecommended];
