@@ -118,7 +118,7 @@ export function CyclesButton() {
 }
 
 export function HddLed(props: {}) {
-    const store: Store = useStore();
+    const store = useStore() as Store;
     const ref = useRef<HTMLDivElement>(null);
     const [state] = useState<{
         recv: number, enabled: boolean, delayLedTo: number,
