@@ -26,12 +26,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && yarn build:emulators",
-    "build:emulators": "mkdir -p dist/emulators && cp -rv node_modules/emulators/dist/* dist/emulators",
+    "build:emulators": "shx mkdir -p ./dist/emulators && shx cp -r ./node_modules/emulators/dist/* ./dist/emulators",
     "preview": "vite preview",
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "eslint": "^9",
+    "eslint": "^8.56.0",
     "preact": "^10"
   },
   "devDependencies": {
@@ -71,6 +71,7 @@
     "react-dom": "npm:@preact/compat@^17.1.2",
     "react-redux": "^8",
     "semver": "^7.6",
+    "shx": "^0.3.4",
     "sockdrive-asyncify": "workspace:*",
     "tailwindcss": "^3.4",
     "terser": "^5",
