@@ -17,5 +17,27 @@
     "errorLens.codeLensEnabled": true,
     "errorLens.enabled": true,
     "livePreview.serverRoot": "dist",
-    "typescript.suggest.enabled": true
+    "typescript.suggest.enabled": true,
+    "cSpell.words": [
+      "asyncify",
+      "caiiiycuk",
+      "daisyui",
+      "dosbox",
+      "fatfs",
+      "fclose",
+      "fopen",
+      "fread",
+      "fwrite",
+      "Guryanov",
+      "HEAPU",
+      "hightlight",
+      "isdir",
+      "JSDOS",
+      "modmode",
+      "noatime",
+      "NOENT",
+      "preact",
+      "reduxjs",
+      "sockdrive"
+    ]
 }
