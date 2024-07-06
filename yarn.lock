@@ -159,7 +159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:^7.24.7":
+"@babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.24.7":
   version: 7.24.7
   resolution: "@babel/code-frame@npm:7.24.7"
   dependencies:
@@ -928,9 +928,10 @@ __metadata:
   linkType: hard
 
 "@preact/preset-vite@npm:^2":
-  version: 2.8.2
-  resolution: "@preact/preset-vite@npm:2.8.2"
+  version: 2.8.3
+  resolution: "@preact/preset-vite@npm:2.8.3"
   dependencies:
+    "@babel/code-frame": "npm:^7.22.13"
     "@babel/plugin-transform-react-jsx": "npm:^7.22.15"
     "@babel/plugin-transform-react-jsx-development": "npm:^7.22.5"
     "@prefresh/vite": "npm:^2.4.1"
@@ -946,7 +947,7 @@ __metadata:
   peerDependencies:
     "@babel/core": 7.x
     vite: 2.x || 3.x || 4.x || 5.x
-  checksum: 10c0/79a26f70ae7a129bbaf3c1969f78df2013c64202184c47e19a44e255d00e7e52b7f8071017da77c8f587121e1df02e9097a03a0791acb1bc8c52b689ac8287a4
+  checksum: 10c0/984b47d24491d20ea9f0787adbef3515c3bd4cdfd77154cdb84e9038fabb5db09a0c76237557aff88b3da26cff6146ac616c2375579143fc511afcf7baf63927
   languageName: node
   linkType: hard
 
