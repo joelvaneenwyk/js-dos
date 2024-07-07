@@ -1,29 +1,54 @@
 export type DosEvent = "emu-ready" | "ci-ready" | "bnd-play";
 
 export interface DosOptions {
-    url: string,
-    dosboxConf: string,
-    background: string,
-    pathPrefix: string,
-    theme: "light" | "dark" | "cupcake" | "bumblebee" | "emerald" | "corporate" |
-    "synthwave" | "retro" | "cyberpunk" | "valentine" | "halloween" | "garden" |
-    "forest" | "aqua" | "lofi" | "pastel" | "fantasy" | "wireframe" | "black" |
-    "luxury" | "dracula" | "cmyk" | "autumn" | "business" | "acid" | "lemonade" |
-    "night" | "coffee" | "winter",
-    lang: "ru" | "en",
-    backend: "dosbox" | "dosboxX",
-    backendLocked: boolean,
-    backendHardware: ((backend: "dosbox" | "dosboxX") => Promise<string | null>),
-    workerThread: boolean,
-    mouseCapture: boolean,
-    onEvent: (event: DosEvent, ci?: any /* CommandInterface */) => void,
-    server: "netherlands" | "newyork" | "singapore",
-    room: string,
-    fullScreen: boolean,
+    url: string;
+    dosboxConf: string;
+    background: string;
+    pathPrefix: string;
+    theme:
+        | "light"
+        | "dark"
+        | "cupcake"
+        | "bumblebee"
+        | "emerald"
+        | "corporate"
+        | "synthwave"
+        | "retro"
+        | "cyberpunk"
+        | "valentine"
+        | "halloween"
+        | "garden"
+        | "forest"
+        | "aqua"
+        | "lofi"
+        | "pastel"
+        | "fantasy"
+        | "wireframe"
+        | "black"
+        | "luxury"
+        | "dracula"
+        | "cmyk"
+        | "autumn"
+        | "business"
+        | "acid"
+        | "lemonade"
+        | "night"
+        | "coffee"
+        | "winter";
+    lang: "ru" | "en";
+    backend: "dosbox" | "dosboxX";
+    backendLocked: boolean;
+    backendHardware: (backend: "dosbox" | "dosboxX") => Promise<string | null>;
+    workerThread: boolean;
+    mouseCapture: boolean;
+    onEvent: (event: DosEvent, ci?: any /* CommandInterface */) => void;
+    server: "netherlands" | "newyork" | "singapore";
+    room: string;
+    fullScreen: boolean;
     sockdriveBackend: {
-        name: string,
-        host: string,
-    }
+        name: string;
+        host: string;
+    };
 }
 
 export interface DosProps {

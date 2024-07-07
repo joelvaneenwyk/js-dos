@@ -1,43 +1,24 @@
 {
-    "[typescript][typescriptreact][javascript][javascriptreact]": {
-        "editor.formatOnPaste": false,
-        "editor.formatOnSave": false,
-        "editor.formatOnSaveMode": "modificationsIfAvailable",
-        "editor.formatOnType": false,
-        "editor.codeActionsOnSave": {
-            "source.fixAll": "explicit",
-            "source.fixAll.eslint": "explicit",
-            "source.organizeImports": "explicit"
-        }
+  "[typescript][typescriptreact][javascript][javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
     },
     "editor.formatOnPaste": false,
     "editor.formatOnSave": false,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
-    "editor.formatOnType": false,
-    "errorLens.codeLensEnabled": true,
-    "errorLens.enabled": true,
-    "livePreview.serverRoot": "dist",
-    "typescript.suggest.enabled": true,
-    "cSpell.words": [
-      "asyncify",
-      "caiiiycuk",
-      "daisyui",
-      "dosbox",
-      "fatfs",
-      "fclose",
-      "fopen",
-      "fread",
-      "fwrite",
-      "Guryanov",
-      "HEAPU",
-      "hightlight",
-      "isdir",
-      "JSDOS",
-      "modmode",
-      "noatime",
-      "NOENT",
-      "preact",
-      "reduxjs",
-      "sockdrive"
-    ]
+    "editor.formatOnType": false
+  },
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "editor.formatOnType": false,
+  "errorLens.codeLensEnabled": true,
+  "errorLens.enabled": true,
+  "files.associations": {
+    "writerside.cfg": "xml"
+  },
+  "livePreview.serverRoot": "dist",
+  "typescript.suggest.enabled": true
 }

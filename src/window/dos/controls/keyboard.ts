@@ -10,7 +10,7 @@ export function keyboard(el: HTMLElement, ci: CommandInterface) {
         ci.sendKeyEvent(keyCode, true);
         e.stopPropagation();
         e.preventDefault();
-    };
+    }
 
     function onKeyUp(e: KeyboardEvent) {
         if ((e.target as any).type === "text") {
@@ -20,7 +20,7 @@ export function keyboard(el: HTMLElement, ci: CommandInterface) {
         ci.sendKeyEvent(keyCode, false);
         e.stopPropagation();
         e.preventDefault();
-    };
+    }
 
     el.addEventListener("keydown", onKeyDown);
     el.addEventListener("keyup", onKeyUp);

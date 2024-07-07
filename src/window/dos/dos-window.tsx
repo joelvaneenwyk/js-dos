@@ -11,8 +11,7 @@ import { uiSlice } from "../../store/ui";
 
 declare const emulators: Emulators;
 
-export function DosWindow(props: {
-}) {
+export function DosWindow(props: {}) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [ci, setCi] = useState<CommandInterface | null>(null);
     const sockdriveWrite = useSelector((state: State) => state.dos.sockdriveWrite);
@@ -26,9 +25,13 @@ export function DosWindow(props: {
 
     useEffect(() => {
         try {
-            const bundles = nonSerializableStore.loadedBundle!.bundleChanges !== null ?
-                [nonSerializableStore.loadedBundle!.bundle, nonSerializableStore.loadedBundle!.bundleChanges] :
-                nonSerializableStore.loadedBundle!.bundle;
+            const bundles =
+                nonSerializableStore.loadedBundle!.bundleChanges !== null
+                    ? [
+                          nonSerializableStore.loadedBundle!.bundle,
+                          nonSerializableStore.loadedBundle!.bundleChanges,
+                      ]
+                    : nonSerializableStore.loadedBundle!.bundle;
 
             nonSerializableStore.loadedBundle!.bundle = null;
             nonSerializableStore.loadedBundle!.bundleChanges = null;
@@ -37,12 +40,16 @@ export function DosWindow(props: {
                 if (backendHardware && nonSerializableStore.options.backendHardware) {
                     const ws = await nonSerializableStore.options.backendHardware(backend);
                     if (ws !== null) {
-                        return emulators.backend(bundles as any, await createWsTransportLayer(ws, (version) => {
-                            if (version < actualWsVersion) {
-                                dispatch(uiSlice.actions.updateWsWarning(true));
-                            }
-                            console.log("wsServer:", version, " expected:", actualWsVersion);
-                        }), { token });
+                        return emulators.backend(
+                            bundles as any,
+                            await createWsTransportLayer(ws, (version) => {
+                                if (version < actualWsVersion) {
+                                    dispatch(uiSlice.actions.updateWsWarning(true));
+                                }
+                                console.log("wsServer:", version, " expected:", actualWsVersion);
+                            }),
+                            { token },
+                        );
                     }
                 }
 
@@ -51,15 +58,13 @@ export function DosWindow(props: {
                 });
             })();
 
-            ci
-                .then((ci) => {
-                    setCi(ci);
-                    dispatch(dosSlice.actions.ci(true));
-                    nonSerializableStore.ci = ci;
-                    postJsDosEvent(nonSerializableStore, "ci-ready", ci);
-                    (window as any).ci = ci;
-                })
-                .catch((e) => dispatch(dosSlice.actions.emuError(e.message)));
+            ci.then((ci) => {
+                setCi(ci);
+                dispatch(dosSlice.actions.ci(true));
+                nonSerializableStore.ci = ci;
+                postJsDosEvent(nonSerializableStore, "ci-ready", ci);
+                (window as any).ci = ci;
+            }).catch((e) => dispatch(dosSlice.actions.emuError(e.message)));
 
             return () => {
                 ci.then((ci) => {
@@ -73,19 +78,19 @@ export function DosWindow(props: {
         }
     }, [worker, backend, token ?? null]);
 
-    return <div class="bg-black h-full flex-grow overflow-hidden relative">
-        <canvas ref={canvasRef} />
-        {canvasRef.current && ci && <DosRuntime canvas={canvasRef.current} ci={ci} />}
-    </div>;
+    return (
+        <div class="bg-black h-full flex-grow overflow-hidden relative">
+            <canvas ref={canvasRef} />
+            {canvasRef.current && ci && <DosRuntime canvas={canvasRef.current} ci={ci} />}
+        </div>
+    );
 }
 
-function DosRuntime(props: { canvas: HTMLCanvasElement, ci: CommandInterface }) {
+function DosRuntime(props: { canvas: HTMLCanvasElement; ci: CommandInterface }) {
     const { canvas, ci } = props;
     const bundle = useSelector((state: State) => state.dos.bundle);
 
     useDosRuntime(canvas, ci);
 
-    return <>
-        {bundle?.endsWith(dhry2Bundle) && <Dhry2Results ci={ci} />}
-    </>;
+    return <>{bundle?.endsWith(dhry2Bundle) && <Dhry2Results ci={ci} />}</>;
 }

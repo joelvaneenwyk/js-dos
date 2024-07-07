@@ -15,16 +15,18 @@ export function LoadingWindow() {
     let message = "100%";
 
     switch (step) {
-        case "bnd-load": {
-            head = t("bundle_loading");
-            if (received > 0) {
-                message = `${formatSize(received)} / ${formatSize(total)}`;
+        case "bnd-load":
+            {
+                head = t("bundle_loading");
+                if (received > 0) {
+                    message = `${formatSize(received)} / ${formatSize(total)}`;
 
-                if (total > 0) {
-                    message += ` (${Math.round(received * 1000 / total) / 10}%)`;
+                    if (total > 0) {
+                        message += ` (${Math.round((received * 1000) / total) / 10}%)`;
+                    }
                 }
             }
-        } break;
+            break;
         case "bnd-config": {
             head = t("bundle_config");
         }
@@ -33,10 +35,12 @@ export function LoadingWindow() {
         }
     }
 
-    return <div class="flex flex-col w-full h-full items-center justify-center">
-        <Loading head={head} message={message} />
-        {step === "bnd-load" && ready && <AccountNotReady />}
-    </div>;
+    return (
+        <div class="flex flex-col w-full h-full items-center justify-center">
+            <Loading head={head} message={message} />
+            {step === "bnd-load" && ready && <AccountNotReady />}
+        </div>
+    );
 }
 
 function AccountNotReady() {
@@ -45,10 +49,15 @@ function AccountNotReady() {
     function skip() {
         dispatch(authSlice.actions.ready());
     }
-    return <>
-        <div class="mt-16 text-2xl">{t("loading_saves")}</div>
-        <div onClick={skip} class="self-center cursor-pointer underline mt-4 text-lg animate-pulse">
-            {t("account_not_ready")}
-        </div>
-    </>;
+    return (
+        <>
+            <div class="mt-16 text-2xl">{t("loading_saves")}</div>
+            <div
+                onClick={skip}
+                class="self-center cursor-pointer underline mt-4 text-lg animate-pulse"
+            >
+                {t("account_not_ready")}
+            </div>
+        </>
+    );
 }

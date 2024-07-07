@@ -12,8 +12,7 @@ import { KBD_0 } from "./controls/keys";
 import { uiSlice } from "../../store/ui";
 import { useT } from "../../i18n";
 
-export function useDosRuntime(canvas: HTMLCanvasElement,
-                              ci: CommandInterface): void {
+export function useDosRuntime(canvas: HTMLCanvasElement, ci: CommandInterface): void {
     useLog(ci);
     useRenderImage(canvas);
     useStats(ci);
@@ -32,10 +31,12 @@ function useLog(ci: CommandInterface): void {
         const preloadProgress: { [drive: string]: number } = {};
         ci.events().onMessage((msgType, ...args: string[]) => {
             if (msgType === "error" && args[0]?.startsWith("[panic]")) {
-                dispatch(uiSlice.actions.showToast({
-                    message: args[0],
-                    intent: "panic",
-                }));
+                dispatch(
+                    uiSlice.actions.showToast({
+                        message: args[0],
+                        intent: "panic",
+                    }),
+                );
             } else if (msgType === "log" && args[0]?.indexOf("sockdrive:") !== -1) {
                 const drive = args[0].substring(args[0].indexOf(" ") + 1, args[0].indexOf(","));
                 dispatch(uiSlice.actions.cloudSaves(false));
@@ -46,7 +47,9 @@ function useLog(ci: CommandInterface): void {
                     dispatch(uiSlice.actions.readOnlyWarning(true));
                 }
                 if (args[0]?.indexOf("preload=") !== -1) {
-                    const rest = Number.parseInt(args[0].substring(args[0].indexOf("preload=") + "preload=".length));
+                    const rest = Number.parseInt(
+                        args[0].substring(args[0].indexOf("preload=") + "preload=".length),
+                    );
                     if (preloadProgress[drive] === undefined) {
                         preloadProgress[drive] = rest;
                         totalPreload += rest;
@@ -59,12 +62,18 @@ function useLog(ci: CommandInterface): void {
                         downloaded -= rest;
                     }
 
-                    dispatch(uiSlice.actions.showToast({
-                        message: t("preloading_sockdrive") + " " +
-                            (Math.round(downloaded / 1024 / 1024 * 100) / 100) + "/" +
-                            (Math.round(totalPreload / 1024 / 1024 * 100) / 100) + "Mb",
-                        long: true,
-                    }));
+                    dispatch(
+                        uiSlice.actions.showToast({
+                            message:
+                                t("preloading_sockdrive") +
+                                " " +
+                                Math.round((downloaded / 1024 / 1024) * 100) / 100 +
+                                "/" +
+                                Math.round((totalPreload / 1024 / 1024) * 100) / 100 +
+                                "Mb",
+                            long: true,
+                        }),
+                    );
                 }
             }
         });
@@ -78,8 +87,7 @@ function useRenderImage(canvas: HTMLCanvasElement): void {
     }, [canvas, rendering]);
 }
 
-function useMouse(canvas: HTMLCanvasElement,
-                  ci: CommandInterface): void {
+function useMouse(canvas: HTMLCanvasElement, ci: CommandInterface): void {
     const mouseCapture = useSelector((state: State) => state.dos.mouseCapture);
     const mouseSensitivity = useSelector((state: State) => state.dos.mouseSensitivity);
     useEffect(() => {
@@ -94,24 +102,34 @@ function useKeyboard(ci: CommandInterface): void {
     }, [ci]);
 }
 
-function useRenderBackend(canvas: HTMLCanvasElement,
-                          ci: CommandInterface): void {
+function useRenderBackend(canvas: HTMLCanvasElement, ci: CommandInterface): void {
     const renderBackend = useSelector((state: State) => state.dos.renderBackend);
     const renderAspect = useSelector((state: State) => state.dos.renderAspect);
 
     let aspect: number | undefined = undefined;
     switch (renderAspect) {
-        case "1/1": aspect = 1; break;
-        case "5/4": aspect = 5 / 4; break;
-        case "4/3": aspect = 4 / 3; break;
-        case "16/10": aspect = 16 / 10; break;
-        case "16/9": aspect = 16 / 9; break;
-        case "Fit": aspect = FitConstant;
+        case "1/1":
+            aspect = 1;
+            break;
+        case "5/4":
+            aspect = 5 / 4;
+            break;
+        case "4/3":
+            aspect = 4 / 3;
+            break;
+        case "16/10":
+            aspect = 16 / 10;
+            break;
+        case "16/9":
+            aspect = 16 / 9;
+            break;
+        case "Fit":
+            aspect = FitConstant;
         default:
     }
 
     useEffect(() => {
-        let unbind = () => { };
+        let unbind = () => {};
 
         if (renderBackend === "canvas") {
             unbind = canvasRender(canvas, ci, aspect);
@@ -177,8 +195,9 @@ function useStats(ci: CommandInterface): void {
                 if (dtSec > 0) {
                     const dStats = {
                         cyclesPerMs: Math.round((stats.cycles - prevCycles) / dtMs),
-                        nonSkippableSleepPreSec: Math.round((stats.nonSkippableSleepCount -
-                            prevNonSkippableSleepCount) / dtSec),
+                        nonSkippableSleepPreSec: Math.round(
+                            (stats.nonSkippableSleepCount - prevNonSkippableSleepCount) / dtSec,
+                        ),
                         sleepPerSec: Math.round((stats.sleepCount - prevSleepCount) / dtSec),
                         sleepTimePerSec: Math.round((stats.sleepTime - prevSleepTime) / dtSec),
                         framePerSec: Math.round((stats.messageFrame - prevFrame) / dtSec),

@@ -1,9 +1,11 @@
 import { FitConstant } from "../../../store/dos";
 
-export function resizeCanvas(canvas: HTMLCanvasElement,
-                             frameWidth: number,
-                             frameHeight: number,
-                             forceAspect?: number) {
+export function resizeCanvas(
+    canvas: HTMLCanvasElement,
+    frameWidth: number,
+    frameHeight: number,
+    forceAspect?: number,
+) {
     const rect = canvas.parentElement!.getBoundingClientRect();
     const containerWidth = rect.width;
     const containerHeight = rect.height;
@@ -12,8 +14,9 @@ export function resizeCanvas(canvas: HTMLCanvasElement,
         return;
     }
     const aspect =
-        forceAspect === FitConstant ? (containerWidth / containerHeight) :
-            (forceAspect ?? (frameWidth / frameHeight));
+        forceAspect === FitConstant
+            ? containerWidth / containerHeight
+            : forceAspect ?? frameWidth / frameHeight;
 
     let width = containerWidth;
     let height = containerWidth / aspect;
@@ -28,4 +31,4 @@ export function resizeCanvas(canvas: HTMLCanvasElement,
     canvas.style.left = (containerWidth - width) / 2 + "px";
     canvas.style.width = width + "px";
     canvas.style.height = height + "px";
-};
+}

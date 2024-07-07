@@ -6,4 +6,3 @@ export function ErrorWindow() {
     const error = useSelector((state: State) => state.dos.error);
     return <Error error={error} />;
 }
-

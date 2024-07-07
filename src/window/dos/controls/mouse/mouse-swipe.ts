@@ -4,10 +4,12 @@ import { mount } from "./mount";
 const clickDelay = 500;
 const clickThreshold = 50;
 
-export function mouseSwipe(sensitivity: number,
-                           pointerButton: number,
-                           el: HTMLElement,
-                           ci: CommandInterface) {
+export function mouseSwipe(
+    sensitivity: number,
+    pointerButton: number,
+    el: HTMLElement,
+    ci: CommandInterface,
+) {
     let startedAt = -1;
     let acc = 0;
     let prevX = 0;

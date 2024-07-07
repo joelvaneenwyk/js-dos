@@ -1,17 +1,20 @@
 import { CommandInterface } from "emulators";
 import { mount } from "./mount";
 
-export function mouseCapture(sensitivity: number,
-                             pointerButton: number,
-                             el: HTMLElement,
-                             ci: CommandInterface) {
+export function mouseCapture(
+    sensitivity: number,
+    pointerButton: number,
+    el: HTMLElement,
+    ci: CommandInterface,
+) {
     function isNotLocked() {
         return document.pointerLockElement !== el;
     }
 
     function onMouseDown(x: number, y: number, button: number) {
         if (isNotLocked()) {
-            const requestPointerLock = el.requestPointerLock ||
+            const requestPointerLock =
+                el.requestPointerLock ||
                 (el as any).mozRequestPointerLock ||
                 (el as any).webkitRequestPointerLock;
 

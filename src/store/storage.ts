@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
-    recived: number,
-    total: number,
-    ready: boolean,
+    recived: number;
+    total: number;
+    ready: boolean;
 } = {
     recived: 0,
     total: 0,
@@ -21,7 +21,7 @@ export const storageSlice = createSlice({
             s.total = 0;
             s.ready = false;
         },
-        progress: (s, a: { payload: [number, number ] }) => {
+        progress: (s, a: { payload: [number, number] }) => {
             s.recived = a.payload[0];
             s.total = a.payload[1];
         },

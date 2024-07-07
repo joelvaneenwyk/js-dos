@@ -1,0 +1,28 @@
+[project]
+name = "js-dos"
+version = "8.1.7"
+description = "Add your description here"
+authors = [
+    { name = "Joel Van Eenwyk", email = "joel.vaneenwyk@gmail.com" }
+]
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+virtual = true
+managed = true
+dev-dependencies = [
+    "ruff>=0.5.1",
+    "black>=24.4.2",
+    "pylint>=3.2.5",
+    "mypy>=1.10.1",
+    "pytest>=8.2.2",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true

@@ -1,0 +1,11 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions:
+  - name: js-dos
+    path: .github/config/js-dos.dict
+    addWords: true
+dictionaries:
+  - js-dos
+words: []
+ignoreWords: []
+import: []

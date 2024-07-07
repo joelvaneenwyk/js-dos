@@ -17,11 +17,15 @@ export function bundleFromFile(file: File, store: Store): Promise<Uint8Array> {
     });
 }
 
-
-export async function bundleFromChanges(url: string, account: Account | null,
-                                        store: Store): Promise<Uint8Array | null> {
+export async function bundleFromChanges(
+    url: string,
+    account: Account | null,
+    store: Store,
+): Promise<Uint8Array | null> {
     if (account === null || !account.premium) {
-        return await getNonSerializableStore(store).cache.get(url).catch(() => null);
+        return await getNonSerializableStore(store)
+            .cache.get(url)
+            .catch(() => null);
     }
 
     try {
@@ -30,12 +34,16 @@ export async function bundleFromChanges(url: string, account: Account | null,
         });
 
         if (response.status !== 200) {
-            throw new Error("Resource not avalible (" + response.status + "): " + response.statusText);
+            throw new Error(
+                "Resource not avalible (" + response.status + "): " + response.statusText,
+            );
         }
 
         return response.arrayBuffer().then((b) => new Uint8Array(b));
     } catch (e: any) {
-        return await getNonSerializableStore(store).cache.get(url).catch(() => null);
+        return await getNonSerializableStore(store)
+            .cache.get(url)
+            .catch(() => null);
     }
 }
 
@@ -56,8 +64,7 @@ export async function bundleFromUrl(url: string, store: Store): Promise<Uint8Arr
     }
 
     const lenHeader = response.headers.get("Content-Length");
-    const length = lenHeader === null ? 0 :
-        Number.parseInt(lenHeader);
+    const length = lenHeader === null ? 0 : Number.parseInt(lenHeader);
     const reader = response.body!.getReader();
 
     let received = 0;
@@ -83,9 +90,7 @@ export async function bundleFromUrl(url: string, store: Store): Promise<Uint8Arr
         offset += next.length;
     }
 
-    getNonSerializableStore(store).cache
-        .put(url, complete)
-        .catch(console.error);
+    getNonSerializableStore(store).cache.put(url, complete).catch(console.error);
 
     return complete;
-};
+}

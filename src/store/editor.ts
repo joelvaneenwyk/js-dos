@@ -5,10 +5,10 @@ import { dosboxconf } from "../frame/editor/defaults";
 
 const initialState: {
     // step: "empty" | "extract" | "ready" | "error",
-    configChanged: boolean,
-    bundleConfig: DosConfig | null,
-    errorMessage: string | null,
-    fs: Node[],
+    configChanged: boolean;
+    bundleConfig: DosConfig | null;
+    errorMessage: string | null;
+    fs: Node[];
 } = {
     // step: "empty",
     configChanged: false,

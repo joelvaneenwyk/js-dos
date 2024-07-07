@@ -1,12 +1,13 @@
 import { pointer, getPointerState } from "./pointer";
 
-export function mount(el: HTMLElement,
-                      pointerButton: number,
-                      onMouseDown: (x: number, y: number, button: number) => void,
-                      onMouseMove: (x: number, y: number, mX: number, mY: number) => void,
-                      onMouseUp: (x: number, y: number, button: number) => void,
-                      onMouseLeave: (x: number, y: number) => void) {
-    // eslint-disable-next-line
+export function mount(
+    el: HTMLElement,
+    pointerButton: number,
+    onMouseDown: (x: number, y: number, button: number) => void,
+    onMouseMove: (x: number, y: number, mX: number, mY: number) => void,
+    onMouseUp: (x: number, y: number, button: number) => void,
+    onMouseLeave: (x: number, y: number) => void,
+) {
     function preventDefaultIfNeeded(e: Event) {
         // not needed yet
     }

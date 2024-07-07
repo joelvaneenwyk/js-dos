@@ -3,15 +3,50 @@ import { lStorage } from "../host/lstorage";
 import { DosAction } from "../store";
 import { Account } from "./auth";
 
-export const ThemeValues = <const>["light", "dark", "cupcake", "bumblebee", "emerald", "corporate",
-    "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi",
-    "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business",
-    "acid", "lemonade", "night", "coffee", "winter"];
-export type Theme = typeof ThemeValues[number];
+export const ThemeValues = <const>[
+    "light",
+    "dark",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "dracula",
+    "cmyk",
+    "autumn",
+    "business",
+    "acid",
+    "lemonade",
+    "night",
+    "coffee",
+    "winter",
+];
+export type Theme = (typeof ThemeValues)[number];
 
-export type Frame = "none" | "account" | "settings" |
-    "editor-conf" | "editor-fs" | "network" |
-    "stats" | "fat-drives" | "quick-save" | "image-rendering";
+export type Frame =
+    | "none"
+    | "account"
+    | "settings"
+    | "editor-conf"
+    | "editor-fs"
+    | "network"
+    | "stats"
+    | "fat-drives"
+    | "quick-save"
+    | "image-rendering";
 
 const initialState: {
     modal: "none" | "login";
@@ -118,17 +153,30 @@ export const uiSlice = createSlice({
         setFullScreen: (state, a: { payload: boolean }) => {
             state.fullScreen = a.payload;
         },
-        showToast: (state, a: { payload: { message: string, intent?: typeof initialState.toastIntent,
-            long?: boolean } }) => {
+        showToast: (
+            state,
+            a: {
+                payload: {
+                    message: string;
+                    intent?: typeof initialState.toastIntent;
+                    long?: boolean;
+                };
+            },
+        ) => {
             if (state.toastTimeoutId !== 0) {
                 clearInterval(state.toastTimeoutId);
             }
             state.toast = a.payload.message;
             state.toastIntent = a.payload.intent ?? "none";
             if (a.payload.intent !== "panic") {
-                state.toastTimeoutId = setTimeout(() => {
-                    (a as unknown as DosAction).asyncStore((store) => store.dispatch(uiSlice.actions.hideToast()));
-                }, a.payload.long ? 5000 : 1500);
+                state.toastTimeoutId = setTimeout(
+                    () => {
+                        (a as unknown as DosAction).asyncStore((store) =>
+                            store.dispatch(uiSlice.actions.hideToast()),
+                        );
+                    },
+                    a.payload.long ? 5000 : 1500,
+                );
             }
         },
         hideToast: (state) => {
@@ -163,18 +211,18 @@ export const uiSlice = createSlice({
                 s.window = "run";
                 s.frame = "none";
             })
-            .addMatcher((action: { type: string }) => {
-                return action.type.startsWith("dos/") &&
-                    action.type.endsWith("Error");
-            }, (s, a) => {
-                s.window = "error";
-            });
+            .addMatcher(
+                (action: { type: string }) => {
+                    return action.type.startsWith("dos/") && action.type.endsWith("Error");
+                },
+                (s, a) => {
+                    s.window = "error";
+                },
+            );
     },
 });
 
-function toggleFrameIfNeeded(
-    state: typeof initialState,
-    newFrame: typeof initialState.frame) {
+function toggleFrameIfNeeded(state: typeof initialState, newFrame: typeof initialState.frame) {
     if (state.frame === newFrame) {
         state.frame = "none";
     } else {

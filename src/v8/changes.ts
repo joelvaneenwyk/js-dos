@@ -1,14 +1,24 @@
 import { uploadsS3Url, uploadsS3Bucket, uploadNamspace, presignPut } from "./config";
 
-function getPersonalBundleKey(id: string,
-                              bundleUrl: string): string {
+function getPersonalBundleKey(id: string, bundleUrl: string): string {
     const index = bundleUrl.lastIndexOf("/");
     const basename = bundleUrl.substring(index + 1);
     return "personal-v2/" + uploadNamspace + "/" + id + "/" + basename;
 }
 
 export function getChangesUrlPrefix(id: string): string {
-    return uploadsS3Url + "/" + uploadsS3Bucket + "/" + "personal-v2" + "/" + uploadNamspace + "/" + id + "/";
+    return (
+        uploadsS3Url +
+        "/" +
+        uploadsS3Bucket +
+        "/" +
+        "personal-v2" +
+        "/" +
+        uploadNamspace +
+        "/" +
+        id +
+        "/"
+    );
 }
 
 export function getChangesUrl(id: string, bundleUrl: string): string {
@@ -16,8 +26,7 @@ export function getChangesUrl(id: string, bundleUrl: string): string {
     return uploadsS3Url + "/" + uploadsS3Bucket + "/" + personalBundleKey;
 }
 
-export async function putChanges(bundleUrl: string,
-                                 data: Uint8Array): Promise<void> {
+export async function putChanges(bundleUrl: string, data: Uint8Array): Promise<void> {
     let response = await fetch(presignPut + "?bundleUrl=" + encodeURIComponent(bundleUrl));
     const result = await response.json();
 
@@ -26,16 +35,16 @@ export async function putChanges(bundleUrl: string,
     }
 
     const post = result.post as {
-        url: string,
+        url: string;
         fields: {
-            Policy: string,
-            "X-Amz-Algorithm": string,
-            "X-Amz-Credential": string,
-            "X-Amz-Date": string,
-            "X-Amz-Signature": string,
-            bucket: string,
-            key: string,
-        },
+            Policy: string;
+            "X-Amz-Algorithm": string;
+            "X-Amz-Credential": string;
+            "X-Amz-Date": string;
+            "X-Amz-Signature": string;
+            bucket: string;
+            key: string;
+        };
     };
 
     const formData = new FormData();

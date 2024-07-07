@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { State } from "./store";
 
-const translations: {[lang: string]: {[key: string]: string} } = {
+const translations: { [lang: string]: { [key: string]: string } } = {
     ru: {
         enter_name_of_drive: "Введите название диска",
         ws_outdated: "Необходимо обновить DOS Браузер",
@@ -156,8 +156,8 @@ const translations: {[lang: string]: {[key: string]: string} } = {
 const initialLang = navigator.language.startsWith("ru") ? "ru" : "en";
 
 const initialState: {
-    lang: "ru" | "en",
-    keys: {[key: string]: string},
+    lang: "ru" | "en";
+    keys: { [key: string]: string };
 } = {
     lang: initialLang,
     keys: translations[initialLang],
@@ -181,5 +181,4 @@ export function useT() {
     return (key: string) => {
         return keys[key] ?? key;
     };
-};
-
+}

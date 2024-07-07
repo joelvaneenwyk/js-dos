@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "preact/hooks";
 
 export function Slider(props: {
-    class?: string,
-    label: string,
-    value: number,
-    onChange: (value: number) => void,
+    class?: string;
+    label: string;
+    value: number;
+    onChange: (value: number) => void;
 }) {
     const sliderRef = useRef<HTMLDivElement>(null);
     const pointRef = useRef<HTMLDivElement>(null);
@@ -19,8 +19,10 @@ export function Slider(props: {
         let pressed = false;
         function updatePercent(e: PointerEvent) {
             const boundingRect = sliderEl.getBoundingClientRect();
-            const percent = Math.min(1, Math.max(0,
-                (e.clientX - boundingRect.left) / boundingRect.width));
+            const percent = Math.min(
+                1,
+                Math.max(0, (e.clientX - boundingRect.left) / boundingRect.width),
+            );
             props.onChange(percent);
         }
 
@@ -40,7 +42,6 @@ export function Slider(props: {
             pressed = false;
         }
 
-
         sliderEl.addEventListener("pointerdown", onPointerDown);
         sliderEl.addEventListener("pointermove", onPointerMove);
         sliderEl.addEventListener("pointerup", onPointerUp);
@@ -58,12 +59,17 @@ export function Slider(props: {
 
     const percent = Math.min(Math.max(0, props.value * 100), 100);
 
-    return <div class={props.class + " slider option"}>
-        <div class="label">{props.label}</div>
-        <div class="touch" ref={sliderRef}>
-            <div class="bg"></div>
-            <div class="point" ref={pointRef}
-                style={{ left: "calc(" + percent + "%" + " - 12px)" }}></div>
+    return (
+        <div class={props.class + " slider option"}>
+            <div class="label">{props.label}</div>
+            <div class="touch" ref={sliderRef}>
+                <div class="bg"></div>
+                <div
+                    class="point"
+                    ref={pointRef}
+                    style={{ left: "calc(" + percent + "%" + " - 12px)" }}
+                ></div>
+            </div>
         </div>
-    </div>;
+    );
 }
