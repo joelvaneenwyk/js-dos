@@ -2,3 +2,7 @@
 	path = src/sockdrive
 	url = https://github.com/joelvaneenwyk/sockdrive.git
 	branch = develop
+[submodule "docs"]
+	path = docs
+	url = https://github.com/joelvaneenwyk/js-dos-docs.git
+	branch = main
