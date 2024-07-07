@@ -110,6 +110,7 @@ modelist
 msal
 msvc
 musleabihf
+mypy
 napi
 netbios
 nextick
@@ -133,6 +134,8 @@ portfinder
 postcss
 prebuild
 prefresh
+pylint
+pytest
 randombytes
 readdirp
 realpath
@@ -169,6 +172,7 @@ undici
 ungap
 unparser
 utila
+venv
 vesa
 vibra
 vite

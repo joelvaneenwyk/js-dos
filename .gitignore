@@ -1,5 +1,5 @@
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,16 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -24,10 +24,12 @@ dist-ssr
 *.sln
 *.sw?
 
-public/emulators
+public/
 *.zip
 
 .yarn/
-package-lock.json
 .build/
+.venv/
 /*.tgz
+
+package-lock.json
