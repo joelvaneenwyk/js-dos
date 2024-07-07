@@ -73,7 +73,7 @@
     "react": "npm:@preact/compat@^17.1.2",
     "react-checkbox-tree": "^1",
     "react-dom": "npm:@preact/compat@^17.1.2",
-    "react-redux": "^8",
+    "react-redux": "^9",
     "semver": "^7.6",
     "shx": "^0.3.4",
     "sockdrive-asyncify": "workspace:*",
