@@ -41,5 +41,8 @@
         "reduxjs",
         "sockdrive",
         "tseslint"
-    ]
+    ],
+    "files.associations": {
+      "writerside.cfg": "xml"
+    }
 }
