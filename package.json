@@ -43,7 +43,7 @@
     "@eslint/eslintrc": "^3",
     "@eslint/js": "^9",
     "@preact/preset-vite": "^2",
-    "@reduxjs/toolkit": "^1",
+    "@reduxjs/toolkit": "^2",
     "@types/babel__core": "^7",
     "@types/eslint__js": "^8",
     "@types/glob": "^8",
