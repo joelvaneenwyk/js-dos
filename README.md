@@ -1,8 +1,8 @@
 # js-dos v8
 
-[![Build](https://github.com/caiiiycuk/js-dos/actions/workflows/build.yml/badge.svg?branch=8.xx)](https://github.com/caiiiycuk/js-dos/actions/workflows/build.yml)
+[![Build](https://github.com/joelvaneenwyk/js-dos/actions/workflows/build.yml/badge.svg?branch=8.xx)](https://github.com/joelvaneenwyk/js-dos/actions/workflows/build.yml)
 
-The simplest API to run **DOS/Win** 9x programs in browser or node. js-dos provides full-featured DOS player that can be easily installed and used to get your DOS program up
+The simplest API to run **DOS/Win** 9x programs in browser or node. `js-dos` provides full-featured DOS player that can be easily installed and used to get your DOS program up
 and running in browser quickly. js-dos provide many advanced features like multiplayer and cloud storage. All available features are enabled for any integration and free.
 
 The key features:
@@ -22,8 +22,7 @@ The key features:
 * [DOS.Zone](https://dos.zone) - community portal with 1900+ dos games
 * [Multiplayer](https://dos.zone/multiplayer) - multiplayer games (Doom, Heroes 2, etc.)
 * [Diablo I](https://dos.zone/diablo-1996/)
-* Dune 2000
-  [![Watch the video](https://github.com/caiiiycuk/js-dos/assets/1727152/a2b481cb-43b1-44aa-8b71-2181d351bb1a)](https://youtu.be/lhFrAe5YrJE)
+* [Dune 2000](https://youtu.be/lhFrAe5YrJE)
 
 ## Documentation
 
@@ -31,7 +30,7 @@ The key features:
 * [js-dos 7.xx](https://js-dos.com/v7/build/)
 * [js-dos 6.22](https://js-dos.com/index_6.22.html)
 * [js-dos 3.xx](https://js-dos.com/index_v3.html)
-* [Repository](https://github.com/caiiiycuk/js-dos-docs)
+* [Repository](https://github.com/joelvaneenwyk/js-dos-docs)
 
 ## Development
 
