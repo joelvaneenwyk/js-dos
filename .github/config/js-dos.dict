@@ -1,7 +1,7 @@
-# Custom Dictionary Words
 ampproject
 anymatch
 argparse
+asyncify
 asynckit
 autoexec
 autolock
@@ -11,6 +11,7 @@ boolbase
 browserify
 browserslist
 cacache
+caiiiycuk
 callsites
 chokidar
 chownr
@@ -24,14 +25,17 @@ corser
 cputype
 cssesc
 csstype
+daisyui
 decamelize
 dhry
+Diablo
 didyoumean
 discarder
 discoveryjs
 domelementtype
 domhandler
 domutils
+dosbox
 doswindow
 eabi
 eastasianwidth
@@ -50,21 +54,29 @@ fakeio
 fakev
 fastparse
 fastq
+fatfs
 Fcdn
+fclose
 Fcustom
 Fdoom
 Fdos
 Fhomm
 fifolock
+fopen
+fread
 fsevents
 fullwidth
+fwrite
 gensync
 ghpages
 globby
 gnueabihf
 gopd
 graphemer
+Guryanov
 hasown
+HEAPU
+hightlight
 htmlparser
 humanwhocodes
 imgmount
@@ -72,6 +84,7 @@ immer
 isaacs
 isarray
 isboolean
+isdir
 isexe
 isinteger
 isnumber
@@ -83,6 +96,7 @@ jackspeak
 jiti
 jridgewell
 jsbn
+JSDOS
 jsesc
 jsonify
 jsonwebtoken
@@ -107,6 +121,7 @@ minipass
 minizlib
 mkdirp
 modelist
+modmode
 msal
 msvc
 musleabihf
@@ -115,7 +130,9 @@ napi
 netbios
 nextick
 njsproj
+noatime
 nodelib
+NOENT
 nopt
 npmcli
 ntvs
@@ -132,6 +149,7 @@ pkgr
 pluginutils
 portfinder
 postcss
+preact
 prebuild
 prefresh
 pylint
@@ -140,6 +158,7 @@ randombytes
 readdirp
 realpath
 rechoir
+reduxjs
 relateurl
 renderkid
 reusify
@@ -154,6 +173,7 @@ scandir
 setimmediate
 shelljs
 shjs
+sockdrive
 softprops
 sprintf
 ssri
@@ -166,6 +186,7 @@ tailwindcss
 tapable
 thenify
 tostringtag
+tseslint
 typebox
 typedarray
 undici
