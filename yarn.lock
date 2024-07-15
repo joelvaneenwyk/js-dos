@@ -805,7 +805,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.13"
     "@vscode/test-cli": "npm:^0.0.9"
     "@vscode/test-electron": "npm:^2.4"
-    "@vscode/vsce": "npm:^2.28"
+    "@vscode/vsce": "npm:^2.30"
     autoprefixer: "npm:^10.4.17"
     cross-env: "npm:^7.0.3"
     daisyui: "npm:^3.9.3"
@@ -1653,9 +1653,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vscode/vsce@npm:^2.28":
-  version: 2.29.0
-  resolution: "@vscode/vsce@npm:2.29.0"
+"@vscode/vsce@npm:^2.30":
+  version: 2.30.0
+  resolution: "@vscode/vsce@npm:2.30.0"
   dependencies:
     "@azure/identity": "npm:^4.1.0"
     "@vscode/vsce-sign": "npm:^2.0.0"
@@ -1687,7 +1687,7 @@ __metadata:
       optional: true
   bin:
     vsce: vsce
-  checksum: 10c0/1719e3c9e85efd395d2755a15474c85c7fb4cade80fa48f6ca064282fb7caabc0ec51ecf452a9d26064a1c8d60cf10a43af3bd180e627b4ae505f7db31a7e62f
+  checksum: 10c0/a0b7a6dc7af71bb0c52a713d330ecaed7bd049425154fbace797f509a04241d5453c22fdd8efe9e493d4a9463e38f7f724faadbf3aba3fc6ca2a5b5639f1df66
   languageName: node
   linkType: hard
 
