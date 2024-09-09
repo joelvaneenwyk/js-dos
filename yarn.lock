@@ -809,7 +809,7 @@ __metadata:
     autoprefixer: "npm:^10.4.17"
     cross-env: "npm:^7.0.3"
     daisyui: "npm:^3.9.3"
-    emulators: "npm:8.1.3"
+    emulators: "npm:8.2.1"
     eslint: "npm:*"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
@@ -3119,10 +3119,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emulators@npm:8.1.3":
-  version: 8.1.3
-  resolution: "emulators@npm:8.1.3"
-  checksum: 10c0/c5a5ff7cf67dd3383661405614eef92d9c9f0befff006845162e9290f89e5ad1171a424437c1b4201d33192520355dcc188597ebdd1c45d355921a3bf9d8a956
+"emulators@npm:8.2.1":
+  version: 8.2.1
+  resolution: "emulators@npm:8.2.1"
+  checksum: 10c0/97a5186ad347780493daa01e8c3c9971cf3ac4fde4f6dc3ebb274a0fd1f87b9e4ce32c9bb049f9cfe30352464cd512996271fa7398dcc1c68e3cc229a977568d
   languageName: node
   linkType: hard
 
